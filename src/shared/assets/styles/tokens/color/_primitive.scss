@@ -10,6 +10,10 @@
 
   --color-brand-800: #002d38;
 
+  // Outside the Figma palette: the mockup has no favourite state, and a
+  // filled heart is conventionally red.
+  --color-red-600: #c8102e;
+
   --color-metal-white-gold: radial-gradient(
     circle farthest-side at 50% 0,
     #cac8b9 50%,

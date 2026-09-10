@@ -2,11 +2,14 @@
 import { useI18n } from "vue-i18n";
 import { Container } from "@/shared/ui";
 import { ShowcaseHero } from "@/widgets/showcase-hero";
+import { CatalogFilters } from "@/widgets/catalog-filters";
+import { getQuickFilters } from "../api";
 import { usePageSeo } from "../lib/usePageSeo";
 
 usePageSeo();
 
 const { t } = useI18n();
+const quickFilters = getQuickFilters();
 </script>
 
 <template>
@@ -17,6 +20,10 @@ const { t } = useI18n();
         :description="t('engagementRings.hero.description')"
         image="/images/hero/engagement-rings.jpg"
       />
+    </Container>
+
+    <Container>
+      <CatalogFilters :quick-filters="quickFilters" />
     </Container>
   </div>
 </template>

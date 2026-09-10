@@ -1,0 +1,38 @@
+[
+  {
+    "id": "classic",
+    "title": "Классические",
+    "image": "/images/quick-filters/classic.png",
+    "to": "/engagement-rings/classic"
+  },
+  {
+    "id": "pave",
+    "title": "С бриллиантовой дорожкой",
+    "image": "/images/quick-filters/pave.png",
+    "to": "/engagement-rings/pave"
+  },
+  {
+    "id": "three-stone",
+    "title": "С тремя камнями",
+    "image": "/images/quick-filters/three-stone.png",
+    "to": "/engagement-rings/three-stone"
+  },
+  {
+    "id": "halo",
+    "title": "С ободком halo",
+    "image": "/images/quick-filters/halo.png",
+    "to": "/engagement-rings/halo"
+  },
+  {
+    "id": "exclusive",
+    "title": "Эксклюзивные помолвочные кольца",
+    "image": "/images/quick-filters/exclusive.png",
+    "to": "/engagement-rings/exclusive"
+  },
+  {
+    "id": "all",
+    "title": "Смотреть всё",
+    "image": "/images/quick-filters/all.png",
+    "to": "/engagement-rings"
+  }
+]

@@ -27,7 +27,23 @@ export default defineNuxtConfig({
   app: {
     head: {
       htmlAttrs: { lang: "ru" },
-      link: [{ rel: "icon", type: "image/svg+xml", href: "/favicon.svg" }],
+      link: [
+        { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
+        {
+          rel: "preload",
+          as: "font",
+          type: "font/woff2",
+          href: "/fonts/suisse-intl/SuisseIntl-Book.woff2",
+          crossorigin: "",
+        },
+        {
+          rel: "preload",
+          as: "font",
+          type: "font/woff2",
+          href: "/fonts/suisse-intl/SuisseIntl-Medium.woff2",
+          crossorigin: "",
+        },
+      ],
     },
     pageTransition: { name: "fade", mode: "out-in" },
   },

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useAsyncData } from "#app";
 import { useI18n } from "vue-i18n";
 import { Container, Divider } from "@/shared/ui";
 import { ShowcaseHero } from "@/widgets/showcase-hero";
@@ -19,10 +20,27 @@ import { usePageSeo } from "../lib/usePageSeo";
 usePageSeo();
 
 const { t } = useI18n();
-const quickFilters = getQuickFilters();
-const shelves = getProductShelves();
-const collections = getBudgetCollections();
-const blog = getBlogPreview();
+
+const { data: quickFilters } = await useAsyncData(
+  "engagement-rings:quick-filters",
+  getQuickFilters,
+  { default: () => [] },
+);
+const { data: shelves } = await useAsyncData(
+  "engagement-rings:shelves",
+  getProductShelves,
+  { default: () => [] },
+);
+const { data: collections } = await useAsyncData(
+  "engagement-rings:collections",
+  getBudgetCollections,
+  { default: () => [] },
+);
+const { data: blog } = await useAsyncData(
+  "engagement-rings:blog",
+  getBlogPreview,
+  { default: () => ({ total: 0, items: [] }) },
+);
 </script>
 
 <template>

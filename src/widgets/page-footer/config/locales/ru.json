@@ -1,0 +1,64 @@
+{
+  "navLabel": "Навигация по разделам сайта",
+  "logoLabel": "LA VIVION",
+  "groups": {
+    "customers": {
+      "title": "Покупателям",
+      "links": {
+        "payment": "Заказ и оплата",
+        "delivery": "Доставка",
+        "returns": "Политика возврата",
+        "documents": "Документы при покупке",
+        "legal": "Юридическая информация",
+        "faq": "FAQ"
+      }
+    },
+    "brand": {
+      "title": "О бренде LA VIVION",
+      "links": {
+        "company": "О компании",
+        "history": "История Дома LA VIVION",
+        "diamonds": "Бриллианты LA VIVION",
+        "news": "Новости",
+        "press": "СМИ о нас",
+        "portal": "Корпоративный портал"
+      }
+    },
+    "service": {
+      "title": "Сервис",
+      "links": {
+        "clientCare": "Клиентский сервис",
+        "registration": "Регистрация украшений"
+      }
+    },
+    "social": {
+      "title": "Мы в соцсетях",
+      "links": {
+        "max": "Max",
+        "pinterest": "Pinterest",
+        "yandexRhythm": "Яндекс Ритм",
+        "telegram": "Telegram",
+        "vk": "ВКонтакте"
+      }
+    },
+    "expertise": {
+      "title": "Экспертиза",
+      "links": {
+        "academy": "Академия LA VIVION",
+        "origin": "Происхождение бриллиантов",
+        "articles": "Статьи"
+      }
+    },
+    "contacts": {
+      "title": "Контакты",
+      "links": {
+        "address": "Москва, Каланчевская улица, 16/1",
+        "phone": "+7 (495) 141-14-67"
+      }
+    }
+  },
+  "copyright": "© 2026 LA VIVION. Все права защищены",
+  "privacy": "Политика конфиденциальности",
+  "terms": "Пользовательское соглашение",
+  "conjunction": "и"
+}

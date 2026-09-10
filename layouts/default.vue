@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { PageHeader } from "@/widgets/page-header";
+import { PageFooter } from "@/widgets/page-footer";
 </script>
 
 <template>
@@ -8,6 +9,7 @@ import { PageHeader } from "@/widgets/page-header";
     <main class="default-layout__main">
       <slot />
     </main>
+    <PageFooter />
   </div>
 </template>
 

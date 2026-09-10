@@ -13,7 +13,9 @@ const sizes = imageSizes({ xs: 100 });
 </script>
 
 <template>
-  <Motion v-bind="revealCascade" tag="section" class="showcase-hero">
+  <section class="showcase-hero">
+    <!-- Outside the reveal on purpose: the picture of the first screen decides
+    the largest paint, and waiting for the animation to load would delay it. -->
     <NuxtImg
       class="showcase-hero__image"
       :src="image"
@@ -25,11 +27,11 @@ const sizes = imageSizes({ xs: 100 });
       preset="photo"
       alt=""
     />
-    <div class="showcase-hero__content">
+    <Motion v-bind="revealCascade" class="showcase-hero__content">
       <h1 class="showcase-hero__title">{{ title }}</h1>
       <p class="showcase-hero__description">{{ description }}</p>
-    </div>
-  </Motion>
+    </Motion>
+  </section>
 </template>
 
 <style lang="scss" scoped>

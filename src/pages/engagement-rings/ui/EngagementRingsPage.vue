@@ -6,6 +6,7 @@ import { CatalogFilters } from "@/widgets/catalog-filters";
 import { ProductShelf } from "@/widgets/product-shelf";
 import { SizeGuideBanner } from "@/widgets/size-guide-banner";
 import { BudgetCollections } from "@/widgets/budget-collections";
+import { ExpertConsultation } from "@/widgets/expert-consultation";
 import {
   getBudgetCollections,
   getProductShelves,
@@ -60,6 +61,12 @@ const collections = getBudgetCollections();
         :title="t('engagementRings.budget.title')"
         :collections="collections"
       />
+    </Container>
+
+    <Divider />
+
+    <Container>
+      <ExpertConsultation image="/images/consultation/expert.jpg" />
     </Container>
   </div>
 </template>

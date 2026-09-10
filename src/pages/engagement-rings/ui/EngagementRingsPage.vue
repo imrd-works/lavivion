@@ -4,6 +4,7 @@ import { Container, Divider } from "@/shared/ui";
 import { ShowcaseHero } from "@/widgets/showcase-hero";
 import { CatalogFilters } from "@/widgets/catalog-filters";
 import { ProductShelf } from "@/widgets/product-shelf";
+import { SizeGuideBanner } from "@/widgets/size-guide-banner";
 import { getProductShelves, getQuickFilters } from "../api";
 import { usePageSeo } from "../lib/usePageSeo";
 
@@ -40,6 +41,13 @@ const shelves = getProductShelves();
         </template>
       </div>
     </Container>
+
+    <Container>
+      <SizeGuideBanner
+        class="engagement-rings-page__banner"
+        image="/images/banners/size-guide.jpg"
+      />
+    </Container>
   </div>
 </template>
 
@@ -56,6 +64,10 @@ const shelves = getProductShelves();
     display: flex;
     flex-direction: column;
     gap: var(--spacing-4xl);
+  }
+
+  &__banner {
+    margin-block: var(--spacing-4xl);
   }
 }
 </style>

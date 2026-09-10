@@ -88,7 +88,6 @@ export default [
             "pages/**/*.vue",
             "layouts/**/*.vue",
             "plugins/**/*.ts",
-            "middleware/**/*.ts",
           ],
           ignores: ["**/locales/**", "**/*.json"],
           plugins: { "no-cyrillic-string": noCyrillicPlugin },

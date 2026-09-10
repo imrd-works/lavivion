@@ -1,14 +1,20 @@
 <script setup lang="ts">
 import { useAsyncData } from "#app";
 import { useI18n } from "vue-i18n";
-import { Container, Divider } from "@/shared/ui";
+import { Container, Divider, SectionError } from "@/shared/ui";
 import { ShowcaseHero } from "@/widgets/showcase-hero";
-import { CatalogFilters } from "@/widgets/catalog-filters";
-import { ProductShelf } from "@/widgets/product-shelf";
+import {
+  CatalogFilters,
+  CatalogFiltersSkeleton,
+} from "@/widgets/catalog-filters";
+import { ProductShelf, ProductShelfSkeleton } from "@/widgets/product-shelf";
 import { SizeGuideBanner } from "@/widgets/size-guide-banner";
-import { BudgetCollections } from "@/widgets/budget-collections";
+import {
+  BudgetCollections,
+  BudgetCollectionsSkeleton,
+} from "@/widgets/budget-collections";
 import { ExpertConsultation } from "@/widgets/expert-consultation";
-import { BlogPreview } from "@/widgets/blog-preview";
+import { BlogPreview, BlogPreviewSkeleton } from "@/widgets/blog-preview";
 import {
   getBlogPreview,
   getBudgetCollections,
@@ -21,26 +27,41 @@ usePageSeo();
 
 const { t } = useI18n();
 
-const { data: quickFilters } = await useAsyncData(
-  "engagement-rings:quick-filters",
-  getQuickFilters,
-  { default: () => [] },
-);
-const { data: shelves } = await useAsyncData(
-  "engagement-rings:shelves",
-  getProductShelves,
-  { default: () => [] },
-);
-const { data: collections } = await useAsyncData(
-  "engagement-rings:collections",
-  getBudgetCollections,
-  { default: () => [] },
-);
-const { data: blog } = await useAsyncData(
-  "engagement-rings:blog",
-  getBlogPreview,
-  { default: () => ({ total: 0, items: [] }) },
-);
+const {
+  data: quickFilters,
+  status: quickFiltersStatus,
+  error: quickFiltersError,
+  refresh: refreshQuickFilters,
+} = await useAsyncData("engagement-rings:quick-filters", getQuickFilters, {
+  default: () => [],
+});
+
+const {
+  data: shelves,
+  status: shelvesStatus,
+  error: shelvesError,
+  refresh: refreshShelves,
+} = await useAsyncData("engagement-rings:shelves", getProductShelves, {
+  default: () => [],
+});
+
+const {
+  data: collections,
+  status: collectionsStatus,
+  error: collectionsError,
+  refresh: refreshCollections,
+} = await useAsyncData("engagement-rings:collections", getBudgetCollections, {
+  default: () => [],
+});
+
+const {
+  data: blog,
+  status: blogStatus,
+  error: blogError,
+  refresh: refreshBlog,
+} = await useAsyncData("engagement-rings:blog", getBlogPreview, {
+  default: () => ({ total: 0, items: [] }),
+});
 </script>
 
 <template>
@@ -54,12 +75,28 @@ const { data: blog } = await useAsyncData(
     </Container>
 
     <Container>
-      <CatalogFilters :quick-filters="quickFilters" />
+      <CatalogFiltersSkeleton v-if="quickFiltersStatus === 'pending'" />
+      <SectionError
+        v-else-if="quickFiltersError"
+        @retry="refreshQuickFilters()"
+      />
+      <CatalogFilters v-else :quick-filters="quickFilters" />
     </Container>
 
     <Container>
       <div class="engagement-rings-page__shelves">
-        <template v-for="(shelf, index) in shelves" :key="shelf.category.id">
+        <template v-if="shelvesStatus === 'pending'">
+          <template v-for="placeholder in 2" :key="placeholder">
+            <Divider v-if="placeholder > 1" />
+            <ProductShelfSkeleton />
+          </template>
+        </template>
+        <SectionError v-else-if="shelvesError" @retry="refreshShelves()" />
+        <template
+          v-for="(shelf, index) in shelves"
+          v-else
+          :key="shelf.category.id"
+        >
           <Divider v-if="index > 0" />
           <ProductShelf
             :category="shelf.category"
@@ -78,7 +115,13 @@ const { data: blog } = await useAsyncData(
     </Container>
 
     <Container>
+      <BudgetCollectionsSkeleton v-if="collectionsStatus === 'pending'" />
+      <SectionError
+        v-else-if="collectionsError"
+        @retry="refreshCollections()"
+      />
       <BudgetCollections
+        v-else
         :title="t('engagementRings.budget.title')"
         :collections="collections"
       />
@@ -93,7 +136,9 @@ const { data: blog } = await useAsyncData(
     <Divider />
 
     <Container>
-      <BlogPreview :articles="blog.items" :total-count="blog.total" />
+      <BlogPreviewSkeleton v-if="blogStatus === 'pending'" />
+      <SectionError v-else-if="blogError" @retry="refreshBlog()" />
+      <BlogPreview v-else :articles="blog.items" :total-count="blog.total" />
     </Container>
   </div>
 </template>

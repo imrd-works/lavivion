@@ -99,8 +99,8 @@ const rest = computed(() => props.products.slice(1));
   }
 
   &__more {
-    align-self: start;
-    justify-self: start;
+    align-self: center;
+    justify-self: center;
   }
 }
 </style>

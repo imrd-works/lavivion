@@ -1,356 +1,271 @@
-Стартовый шаблон на **Nuxt 4 + Vue 3 + TypeScript**. В комплекте: Pinia (состояние), vue-i18n (переводы), axios-клиент с тостами, VueUse, gsap (анимации в `Motion`), дизайн-токены и миксины на SCSS, набор layout/UI-компонентов, а также готовый контроль качества (ESLint, Stylelint/BEM, Prettier, husky, commitlint, CI).
+# LA VIVION — витрина помолвочных колец
+
+Страница каталога помолвочных колец, свёрстанная по макету Figma
+`1.1_Showcase/Engagemant_Rings` (десктоп, 1440). Проект собран на Nuxt 4 с
+архитектурой Feature-Sliced Design, строгой типизацией и стилями на SCSS
+по токенам макета.
+
+- **Стек:** Nuxt 4, Vue 3, TypeScript (strict), SCSS + БЭМ, Pinia, vue-i18n, GSAP
+- **Архитектура:** Feature-Sliced Design
+- **Вёрстка:** десктоп 1440 попиксельно; макетов планшета и мобильного нет
+
+---
+
+## Запуск
 
 ```bash
 npm install
 npm run dev
 ```
 
-Документ описывает, **зачем нужен каждый модуль и как им пользоваться**. Тонкости конфигурации (переменные окружения, генерация типов из OpenAPI, шрифты, внутренности i18n, отключение функций) вынесены в [SETUP.md](./SETUP.md).
+Приложение поднимется на `http://localhost:3000`.
+
+### Шрифт
+
+В макете используется **Suisse Intl** (Swiss Typefaces). Файлы `woff2` лежат в
+`public/fonts/suisse-intl/`, подключение описано в
+`src/app/styles/base/_fonts.scss`. Дополнительных действий при установке не
+требуется.
+
+> **Репозиторий должен оставаться приватным.** Лицензия Swiss Typefaces
+> (Basic, оформлена на LA VIVION) разрешает встраивать шрифт в сайт через
+> `@font-face` только поставляемыми файлами `woff2` и требует защищать их от
+> доступа третьих лиц. Публичный репозиторий это условие нарушает. Сторонние
+> сервисы хостинга шрифтов лицензией тоже запрещены.
+
+### Переменные окружения
+
+Скопируйте `.env.example` в `.env`. Обе переменные опциональны для локальной
+разработки, но `NUXT_PUBLIC_SITE_URL` нужен для корректных ссылок в Open Graph
+и в карте сайта.
 
 ---
 
-## Структура проекта
+## Архитектура
+
+### Слои
+
+Код приложения лежит в `src/` и разложен по слоям Feature-Sliced Design.
+Папки, которые требует Nuxt (`pages/`, `layouts/`, `plugins/`, `public/`,
+`app.vue`), остались в корне: это точки входа фреймворка, а не бизнес-код.
 
 ```
-app.vue              # корневой компонент: <NuxtLayout> + <NuxtPage> + тостер
-layouts/             # макеты Nuxt: default, auth
-middleware/          # route middleware: auth, guest, dev-only
-pages/               # маршруты Nuxt — тонкие обёртки над модулями страниц
-nuxt.config.ts       # конфиг Nuxt: алиасы, SCSS, runtimeConfig
 src/
-├── app/
-│   ├── api/          # HTTP-клиент: интерфейс ApiClient, axios-адаптер, типы из OpenAPI
-│   └── i18n/         # настройка vue-i18n и загрузка локалей
-├── pages/            # модули страниц (см. раздел «Страница как модуль»)
-│   └── {page}/
-│       ├── views/        # Vue-компоненты страницы
-│       ├── api/          # запросы этой страницы (опционально)
-│       ├── seo/          # usePageSeo() — title/description через i18n
-│       ├── locales/      # переводы страницы: en.json и т.д.
-│       └── composables/  # логика страницы (опционально)
-├── shared/
-│   ├── components/   # прикладные общие компоненты (ToasterLazy)
-│   ├── composables/  # useToast, useHelpers, useSeo
-│   ├── layout/       # примитивы раскладки: Container, Section, Grid, Box
-│   ├── ui/           # UI: Text, Button, Input, Select, Modal, Motion, Card, CardSkeleton, Icon
-│   ├── stores/       # Pinia-сторы (user)
-│   └── locales/      # общие переводы (en.json, ru.json)
-└── assets/
-    ├── icons/        # исходные SVG-иконки
-    └── styles/       # токены, миксины, функции, базовые стили
+├── app/          инициализация: i18n, глобальные стили
+├── pages/        страницы как модули
+├── widgets/      самостоятельные блоки страницы
+├── features/     пользовательские сценарии
+├── entities/     предметные сущности
+└── shared/       переиспользуемое без привязки к домену
 ```
 
----
+Импорты идут только вниз: страница может взять виджет, виджет — фичу или
+сущность, любой слой — `shared`. Обратные импорты запрещены. Из-за этого
+HTTP-клиент живёт в `shared/api`, а не в `app`: к нему обращаются страницы,
+а слой `app` для них недоступен.
 
-## Страница как модуль
+### Слайсы и сегменты
 
-Маршрутизация — стандартная файловая у Nuxt: файл в корневой папке `pages/` создаёт URL. Но эти файлы **тонкие**: они только подключают компонент из `src/pages/{page}/views`. Вся логика, переводы и SEO страницы живут рядом в одной папке — так разработчику сразу видно, где что лежит.
+Внутри слоя код разбит на слайсы по предметной области (`product`,
+`page-header`, `toggle-favorite`). Внутри слайса — стандартные сегменты
+методологии:
 
-```vue
-<!-- pages/about.vue — обёртка-маршрут -->
-<script setup lang="ts">
-import AboutPage from "@/pages/about/views/AboutPage.vue";
-</script>
+| сегмент   | что внутри                             |
+| --------- | -------------------------------------- |
+| `ui/`     | компоненты                             |
+| `model/`  | типы, хранилища                        |
+| `lib/`    | вспомогательные функции и composables  |
+| `api/`    | обращения к данным                     |
+| `config/` | константы, маршруты, словари переводов |
 
-<template>
-  <AboutPage />
-</template>
-```
-
-Внутри `src/pages/about/`:
-
-- `views/` — компоненты страницы;
-- `locales/en.json` — переводы (ключи доступны под неймспейсом страницы, например `t("about.title")`);
-- `seo/usePageSeo.ts` — заголовок и описание для `<head>`;
-- `api/` и `composables/` — запросы и логика, если нужны.
-
-Подключение middleware к маршруту — через `definePageMeta` в обёртке:
+У каждого слайса есть публичный API — файл `index.ts`. Снаружи обращаются
+только к нему, внутренние пути закрыты:
 
 ```ts
-definePageMeta({ middleware: ["auth"] });
+import { ProductCard } from "@/entities/product"; // так
+import ProductCard from "@/entities/product/ui/ProductCard.vue"; // так не надо
 ```
+
+Алиас в проекте один: `@` указывает на `src`. Он объявлен в `nuxt.config.ts` и
+продублирован в `tsconfig.json`, потому что корневой `tsconfig` перекрывает
+карту путей из `.nuxt` целиком.
+
+### Карта страницы
+
+```
+layouts/default.vue
+├── widgets/page-header          шапка: логотип, меню, иконки, кнопка
+├── pages/engagement-rings       содержимое страницы
+│   ├── widgets/showcase-hero        баннер с заголовком
+│   ├── widgets/catalog-filters      плитки быстрых фильтров и панель фильтров
+│   ├── widgets/product-shelf   ×5   заголовок категории и сетка карточек
+│   ├── widgets/size-guide-banner    баннер «Не знаете размер?»
+│   ├── widgets/budget-collections   подборки по бюджету
+│   ├── widgets/expert-consultation  запись на просмотр
+│   └── widgets/blog-preview         карусель статей
+└── widgets/page-footer          подвал
+```
+
+Страница отвечает только за состав и вертикальный ритм секций. Всё
+оформление внутри секции принадлежит виджету, всё оформление карточки —
+сущности.
 
 ---
 
-## HTTP-клиент и тосты
+## Тексты и данные
 
-Модуль `src/app/api/` — это единая точка работы с бэкендом. Компоненты импортируют готовый клиент `api` и не знают, что под капотом axios:
+Разделены намеренно.
 
-```ts
-import { api } from "@/api";
+**Подписи интерфейса** живут в словарях `config/locales/ru.json` внутри своего
+слайса. Пространство имён выводится из имени слайса: `page-header` →
+`pageHeader`. Язык по умолчанию — русский, он подключается на сервере, любой
+другой язык догружается отдельным чанком.
+
+```
+src/widgets/page-header/config/locales/ru.json  →  t("pageHeader.cta")
 ```
 
-Клиент описан интерфейсом `ApiClient` (`client.ts`) с методами `get/post/put/patch/delete`. Каждый возвращает `ApiResponse<T>` — `{ data, status, headers }`. Это позволяет сменить HTTP-библиотеку, не трогая код страниц (см. [SETUP.md](./SETUP.md)).
+> При добавлении **нового** файла словаря нужен перезапуск dev-сервера:
+> список словарей собирается через `import.meta.glob` на этапе загрузки модуля,
+> и горячая перезагрузка новые файлы не подхватывает.
 
-Третий аргумент — `ApiRequestConfig` — управляет поведением и тостами:
+**Контент** (товары, подборки, статьи) лежит в
+`src/pages/engagement-rings/api/mock/*.json` и отдаётся через функции в
+`api/index.ts`. Форма данных совпадает с тем, что вернул бы бэкенд, поэтому
+при появлении настоящего API меняются только тела функций, компоненты не
+трогаются.
 
-| Поле            | Что делает                                                 |
-| --------------- | ---------------------------------------------------------- |
-| `toast.success` | показать тост при успехе                                   |
-| `toast.error`   | своё сообщение тоста при ошибке (вместо текста от бэкенда) |
-| `silent: true`  | не показывать тост об ошибке — обработать самому           |
-| `params`        | query-параметры                                            |
-| `headers`       | заголовки запроса                                          |
+Приведение типов встречается ровно в одном месте — на границе с моками:
+импорт JSON расширяет строковые литералы до `string`, из-за чего теряется
+объединение вариантов металла.
 
-По умолчанию интерцептор axios сам показывает тост при ошибке: берёт `error.response.data.message`, иначе `statusText`, иначе «Request error». При успехе тост молчит, пока не задан `toast.success`.
-
-```ts
-// просто запрос — при ошибке тост покажется автоматически
-const { data } = await api.get<User>("/user/1");
-
-// тост при успехе
-await api.post("/user", payload, { toast: { success: "Saved" } });
-
-// своё сообщение об ошибке вместо текста бэкенда
-await api.post("/user", payload, { toast: { error: "Invalid email" } });
-
-// отключить авто-тост и обработать ошибку вручную
-await api.get("/data", { silent: true }).catch(() => {
-  useToast().error("Custom error message");
-});
-```
-
-При ответе `401` интерцептор вызывает `useUserStore().logout()`.
-
-> Типы ответов можно генерировать из OpenAPI-спеки — см. [SETUP.md](./SETUP.md).
+В коде запрещена кириллица (правило ESLint), поэтому строку невозможно
+случайно зашить в компонент мимо словаря или мока.
 
 ---
 
-## Тосты (`useToast`)
+## Дизайн-система
 
-`@/composables/useToast` — обёртка над [vue-sonner](https://github.com/xiaoluoboding/vue-sonner). Библиотека и компонент `<Toaster>` подгружаются лениво при первом вызове, поэтому не попадают в начальный бандл.
+### Токены
 
-```ts
-const toast = useToast();
+Двухуровневые CSS-переменные в `src/shared/assets/styles/tokens/`:
 
-toast.success("Saved", "Optional description");
-toast.error("Something went wrong");
-toast.info("Heads up");
+- **примитивы** — сырые значения палитры и шкал;
+- **семантика** — роли: `--color-text-secondary`, `--color-bg-surface-subtle`,
+  `--color-action-primary-bg`.
 
-// тост, привязанный к промису
-toast.promise(saveUser(), {
-  loading: "Saving…",
-  success: "Saved",
-  error: "Failed",
-});
-```
+Компоненты используют только семантику. Смена палитры — правка одного файла.
 
-Компонент `<ToasterLazy />` уже смонтирован в `app.vue`, отдельно подключать ничего не нужно.
+### Типографика
 
----
-
-## Состояние (Pinia)
-
-Сторы лежат в `src/shared/stores` и импортируются из `@/stores`. В шаблоне есть `useUserStore` — простой пример авторизации:
-
-```ts
-import { useUserStore } from "@/stores";
-
-const user = useUserStore();
-user.login(userData, token); // записать пользователя и токен
-user.isAuthenticated; // computed: есть ли токен
-user.logout(); // очистить
-```
-
-Стор используется в middleware `auth`/`guest` и в интерцепторе при `401`. Токен хранится в cookie (`useCookie`), поэтому авторизация переживает перезагрузку и работает при SSR; axios-интерцептор сам подставляет его в заголовок `Authorization`. Подробнее — в [SETUP.md](./SETUP.md).
-
----
-
-## Переводы (i18n)
-
-Переводы делятся на общие (`src/shared/locales`) и постраничные (`src/pages/{page}/locales`). Неймспейс страницы — это **имя её папки в camelCase** (`not-found` → `notFound`). Общие ключи лежат в корне.
-
-```vue
-<script setup lang="ts">
-import { useI18n } from "vue-i18n";
-const { t } = useI18n();
-</script>
-
-<template>
-  <h1>{{ t("home.title") }}</h1>
-  <!-- из pages/home/locales -->
-  <nav>{{ t("nav.home") }}</nav>
-  <!-- из shared/locales -->
-</template>
-```
-
-Локаль `en` загружается сразу (она нужна для серверного рендера), остальные — по требованию:
-
-```ts
-import { i18n, loadLocaleAsync } from "@/i18n";
-
-async function setLocale(locale: string) {
-  await loadLocaleAsync(locale); // подгрузит shared + все страницы для локали
-  i18n.global.locale.value = locale;
-}
-```
-
-Чтобы добавить язык, создайте `shared/locales/<locale>.json` и при необходимости `pages/<page>/locales/<locale>.json` — они подхватятся автоматически (см. [SETUP.md](./SETUP.md)).
-
----
-
-## SEO страниц
-
-Каждая страница задаёт `<title>` и `<meta description>` через `seo/usePageSeo.ts`, который берёт строки из i18n (ключи `<namespace>.seo.title` и `.description`):
-
-```ts
-// src/pages/home/seo/usePageSeo.ts
-import { useI18n } from "vue-i18n";
-import { useSeoMeta } from "@/composables/useSeo";
-
-export function usePageSeo() {
-  const { t } = useI18n();
-  useSeoMeta({
-    title: () => t("home.seo.title"),
-    description: () => t("home.seo.description"),
-  });
-}
-```
-
-Вызовите `usePageSeo()` в `setup` компонента страницы. Сами тексты — в `pages/<page>/locales/<locale>.json` под ключом `seo`. `@/composables/useSeo` — единая точка для SEO-функций Nuxt (`useSeoMeta`, `useHead`).
-
-`/sitemap.xml` и `/robots.txt` генерируются автоматически модулями `@nuxtjs/sitemap` и `@nuxtjs/robots` (адрес — из `NUXT_PUBLIC_SITE_URL`). Подробнее — в [SETUP.md](./SETUP.md).
-
----
-
-## Вспомогательные composables (`useHelpers`)
-
-`@/composables/useHelpers` — единая точка для самых частых функций VueUse плюс небольшой собственный хелпер. Удобно, потому что VueUse здесь не авто-импортируется.
-
-| Функция             | Назначение                               |
-| ------------------- | ---------------------------------------- |
-| `useDebounceFn`     | дебаунс обработчика (поиск, ввод)        |
-| `useThrottleFn`     | троттлинг (scroll/resize)                |
-| `refDebounced`      | дебаунс-ref для v-model                  |
-| `refThrottled`      | throttled-ref                            |
-| `useLocalStorage`   | реактивное значение в localStorage       |
-| `useAsyncState`     | загрузка со state `loading`/`error`      |
-| `computedAsync`     | асинхронный computed                     |
-| `useDebouncedInput` | поле ввода с парой `input` / `debounced` |
-
-```ts
-const { input, debounced } = useDebouncedInput("", 300);
-watch(debounced, (v) => fetchResults(v));
-
-const theme = useLocalStorage("theme", "light");
-```
-
----
-
-## Компоненты раскладки и UI
-
-Импортируются из бочек `@/shared/layout` и `@/shared/ui` (это обычные компоненты, не авто-импорт).
-
-**Раскладка** (`@/shared/layout`) — отступы и сетка через токены, размеры подстраиваются под ширину экрана (fluid):
-
-| Компонент   | Назначение                 | Основные props                                            |
-| ----------- | -------------------------- | --------------------------------------------------------- |
-| `Container` | центрирует и ограничивает  | `maxWidth` (по умолч. `80rem`), `padding` `none\|s\|m\|l` |
-| `Section`   | вертикальные отступы блока | `tag` (`section`), `padding` `none\|s\|m\|l`              |
-| `Grid`      | CSS-grid                   | `columns` (число или строка), `gap` `xs…xl`, `align`      |
-| `Box`       | универсальный контейнер    | `tag`, `padding` `none\|xs\|s\|m\|l\|xl`                  |
-
-```vue
-<script setup lang="ts">
-import { Section, Container, Grid } from "@/shared/layout";
-import { Card } from "@/shared/ui";
-</script>
-
-<template>
-  <Section>
-    <Container max-width="60rem">
-      <Grid :columns="3" gap="m">
-        <Card v-for="item in items" :key="item.id">{{ item.title }}</Card>
-      </Grid>
-    </Container>
-  </Section>
-</template>
-```
-
-**UI** (`@/shared/ui`):
-
-- `Text` — типографика: `variant` (display/heading/body/label/caption/code) и `tone`, через миксин `text()`.
-- `Button` — варианты `primary|accent|ghost|outline|text`, размеры `s|m|l`, `loading`, `icon`, рендер через `tag`. Для icon-only-кнопок передавайте `aria-label`.
-- `Input` — `v-model`, текст или `textarea` (`multiline`), `label`, `icon`, `error`, `hint`, счётчик при `maxlength`; стабильный `id` через `useId`.
-- `Select` — `v-model`, `options: SelectOption[]`, `placeholder`, `label`, `error`.
-- `Modal` — `v-model`, `Teleport` в `body`, блокировка скролла, закрытие по Esc/клику по фону, слоты `header`/`footer`, `size` `sm|md|lg`.
-- `Motion` — анимация появления на gsap: пресеты (`fade-up`, `fade-in`, `scale-in`, `slide-*`), триггеры `mount`/`visible`, `stagger`; уважает `prefers-reduced-motion`.
-- `Card` — карточка с фоном, рамкой и тенью; `padding` `none|s|m|l`.
-- `CardSkeleton` — заглушка-плейсхолдер на время загрузки; `lines` (число строк), `padding`.
-- `Icon` — рендерит `<svg><use href="#icon-<name>"/></svg>`. Ожидает inline-спрайт с символами `#icon-<name>`. **Спрайт в шаблоне пока не подключён** (см. примечание в [SETUP.md](./SETUP.md)) — перед использованием его нужно завести. Поэтому `icon` в Button/Input/Select и кнопка закрытия Modal пока не отрисуют иконку.
-
-```vue
-<script setup lang="ts">
-import { Button, Input, Modal, Text } from "@/shared/ui";
-</script>
-```
-
-Часть компонентов (layout-примитивы и `Card`) показана на странице `/ui-kit` (`pages/ui-kit.vue`); новые формы/Modal/Motion в showcase пока не добавлены.
-
----
-
-## Стили (SCSS)
-
-Дизайн-токены, миксины и функции живут в `src/assets/styles`. Глобальные стили (`main.scss`) уже подключены в `nuxt.config.ts`. В компонентах подключайте миксины одной строкой:
+Десять стилей из макета собраны в группы `--text-*` и применяются миксином:
 
 ```scss
-@use "assets/styles/mixins" as *;
-```
-
-(работает благодаря `loadPaths: ['./src']` в SCSS-конфиге).
-
-**Токены** (`tokens/`) — CSS-переменные на `:root`, единственный источник значений. Компоненты используют только семантические токены, не «сырые» цвета:
-
-- цвета — `--color-text-primary`, `--color-bg-surface`, `--color-border-subtle`, `--color-action-primary-bg`, …
-- типографика — группы `--text-{display|heading|body|label|caption|code}-*`
-- отступы — `--spacing-3xs … --spacing-7xl`
-- радиусы — `--radius-xs … --radius-3xl`, `--radius-full`
-- тени — `--shadow-*`; z-index — `--z-dropdown`, `--z-modal`, `--z-toast`, …
-- движение — токены в `tokens/motion`
-
-**Миксины** (`mixins/`):
-
-- адаптив: `bp-up`, `bp-down`, `bp-between`, `bp-only` (ключи `xs sm md lg xl 2xl`);
-- плавные значения: `fluid`, `fluid-between` (интерполяция между брейкпоинтами);
-- типографика: `text("heading-l")` — раскрывает токен стиля в CSS-свойства;
-- раскладка и утилиты: `flex`, `flex-center`, `flex-between`, `grid`, `auto-grid`, `stack`, `cluster`, `center-block`, `truncate`, `line-clamp`, `aspect-ratio`, `visually-hidden`, `focus-ring`, `reset-button`, `motion-safe` и др.
-
-```scss
-.card__title {
-  @include text("heading-m");
-
-  @include bp-up(md) {
-    @include fluid-between(font-size, 1rem, 1.5rem, "md", "xl");
-  }
+.product-card__title {
+  @include text("body-m-light");
 }
 ```
 
-**Функции** (`functions/`): `rem(24)` (px → rem) и `strip-unit(16px)`.
+Миксин раскрывает семейство, размер, начертание, интерлиньяж, межбуквенное
+расстояние и регистр. Отдельного компонента-обёртки для текста нет: разметка
+остаётся семантической, а стиль задаётся классом БЭМ.
+
+### Разделительные линии
+
+Обводка в Figma не увеличивает высоту блока, а `border` в CSS — увеличивает.
+Из-за этого каждая секция с рамкой становилась на пиксель выше макета. Для
+таких линий есть миксин `hairline($side)`, который рисует их внутренней тенью:
+
+```scss
+.page-header__row {
+  @include hairline(bottom);
+}
+```
+
+### Сетка и адаптивность
+
+Контейнер ограничен 1920 и имеет боковые поля, плавно растущие с 16 до 24
+пикселей. На 1440 это даёт ровно те 1392 пикселя контента, что и в макете.
+
+Секции построены на сетках с долевыми колонками, а не на фиксированных
+пикселях, поэтому раскладка переживает изменение ширины окна. Отдельных
+макетов планшета и мобильного нет, брейкпоинты под них не описаны.
 
 ---
 
-## Скрипты
+## Иконки и изображения
 
-| Команда                | Что делает                                                      |
-| ---------------------- | --------------------------------------------------------------- |
-| `npm run dev`          | дев-сервер                                                      |
-| `npm run build`        | `lint:check` → `nuxt typecheck` → `nuxt build`                  |
-| `npm run generate`     | статическая генерация (SSG)                                     |
-| `npm run preview`      | предпросмотр собранного билда                                   |
-| `npm run lint`         | ESLint + Stylelint с авто-фиксом                                |
-| `npm run lint:check`   | ESLint + Stylelint без фикса (для CI)                           |
-| `npm run typecheck`    | проверка типов (`nuxt typecheck`)                               |
-| `npm run format`       | Prettier — записать                                             |
-| `npm run format:check` | Prettier — только проверить                                     |
-| `npm run generate:api` | сгенерировать TS-типы из OpenAPI → `src/app/api/contracts.d.ts` |
+Иконки — отдельные SVG в `src/shared/assets/icons/`, подключаются через
+`vite-svg-loader` как компоненты и наследуют цвет от родителя. Компонент
+`Icon` находит нужный файл по имени:
+
+```vue
+<Icon name="search" :size="24" />
+```
+
+Логотип вынесен в отдельный компонент `Logo` с вариантами для шапки и подвала.
+
+Изображения экспортированы из макета в `public/images/` и уменьшены до
+удвоенного размера отображения. Фотографии в JPEG, кольца с прозрачным фоном в
+PNG. Исходники весили 55 МБ, в репозитории 3.7 МБ.
 
 ---
 
-## Качество кода и git-хуки
+## Анимация появления
 
-- **ESLint** (`eslint.config.js`) — Vue 3, accessibility, TypeScript, интеграция с Prettier. Есть правило «без кириллицы» в строковых литералах кода. Подробности и переключатели — в [SETUP.md](./SETUP.md).
-- **Stylelint** (`stylelint.config.js`) — стили по методологии **BEM**: блок `.block`, элемент `.block__el`, модификатор `.block--mod`. В начале каждого `<style>` укажите `/** @define block-name */`. Kebab-case утилиты (`.flex`, `.gap-m`) разрешены.
-- **Prettier** — правила в `.prettierrc.json`, отступы/EOL — в `.editorconfig`. Стиль берётся из конфигов проекта, а не из настроек редактора.
-- **Husky + lint-staged** — на `pre-commit` линт/формат только изменённых файлов; на `commit-msg` — проверка сообщения.
-- **Commitlint** — формат [Conventional Commits](https://www.conventionalcommits.org): `type(scope?): subject`, где `type` ∈ `feat fix refactor style docs test chore build ci perf revert`. Конфиг — `commitlint.config.js`.
-- **CI** (`.github/workflows/ci.yml`) — на push и PR в `main`/`dev` параллельно запускаются `lint`, `typecheck`, `build` и (для PR) `commitlint`.
+Секции проявляются при попадании в область просмотра, элементы внутри — по
+очереди: каждый следующий стартует на середине предыдущего.
+
+Тайминг задаётся в `src/shared/config/motion.ts` одним числом, шаг считается
+как его половина. Анимацией управляет компонент `Motion` поверх GSAP: сама
+библиотека грузится отдельным чанком и только когда доходит до дела.
+
+Чтобы контент не мелькал, элементы приходят с сервера уже скрытыми. Скрытие
+включается классом, который проставляет крошечный скрипт в шапке документа до
+первой отрисовки. Без JavaScript класс не появляется и контент виден сразу;
+при системной настройке «уменьшить движение» анимация выключается.
+
+---
+
+## Принятые решения и допущения
+
+Отмечаю то, чего в макете нет и что решено на нашей стороне:
+
+- **Состояния наведения.** В макете у всех компонентов выставлено единственное
+  состояние. Наведение сделано минимальным: подсветка прозрачностью для ссылок
+  и иконок, потемнение основной кнопки, потемнение рамки у контурной.
+- **Избранное.** Кольцо в избранном показывается залитым красным сердцем.
+  Форма взята из контура иконки макета, цвет добавлен отдельным токеном, потому
+  что в палитре бренда красного нет.
+- **Кнопки листания карусели.** В макете под них зарезервировано место, но сам
+  элемент скрыт, внешний вид неизвестен. Карусель листается колесом, пальцем и
+  клавиатурой, стрелки не рисовал.
+- **Иконка сайта.** В макете её нет, поставлена временная монограмма.
+- **Четвёртая карточка блога** воспроизводит заглушку из макета.
+
+## Доступность
+
+- Все интерактивные элементы — настоящие ссылки и кнопки, доступны с клавиатуры.
+- У иконок без подписи обязательный текстовый ярлык, у кнопки избранного
+  меняется и ярлык, и состояние нажатия.
+- Декоративные изображения скрыты от скринридеров, свотчи металлов имеют
+  скрытые подписи.
+- Карточки товара и статьи кликаются целиком, но доступное имя ссылки остаётся
+  на заголовке.
+
+---
+
+## Качество кода
+
+Проверки запускаются локально и в CI, а также на pre-commit через Husky:
+
+| команда              | что делает                                           |
+| -------------------- | ---------------------------------------------------- |
+| `npm run lint:check` | ESLint (Vue, доступность, импорты) и Stylelint (БЭМ) |
+| `npm run typecheck`  | проверка типов через `vue-tsc`                       |
+| `npm run format`     | Prettier                                             |
+| `npm run build`      | линт, типы и production-сборка                       |
+
+Сообщения коммитов проверяются Commitlint по Conventional Commits.
+
+Подробности конфигурации — в [SETUP.md](./SETUP.md).

@@ -11,5 +11,3 @@ coverage/
 .env.*
 !.env.example
 .cursor
-
-public/fonts/**/*.woff2

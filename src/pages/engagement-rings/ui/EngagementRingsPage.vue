@@ -5,7 +5,12 @@ import { ShowcaseHero } from "@/widgets/showcase-hero";
 import { CatalogFilters } from "@/widgets/catalog-filters";
 import { ProductShelf } from "@/widgets/product-shelf";
 import { SizeGuideBanner } from "@/widgets/size-guide-banner";
-import { getProductShelves, getQuickFilters } from "../api";
+import { BudgetCollections } from "@/widgets/budget-collections";
+import {
+  getBudgetCollections,
+  getProductShelves,
+  getQuickFilters,
+} from "../api";
 import { usePageSeo } from "../lib/usePageSeo";
 
 usePageSeo();
@@ -13,6 +18,7 @@ usePageSeo();
 const { t } = useI18n();
 const quickFilters = getQuickFilters();
 const shelves = getProductShelves();
+const collections = getBudgetCollections();
 </script>
 
 <template>
@@ -46,6 +52,13 @@ const shelves = getProductShelves();
       <SizeGuideBanner
         class="engagement-rings-page__banner"
         image="/images/banners/size-guide.jpg"
+      />
+    </Container>
+
+    <Container>
+      <BudgetCollections
+        :title="t('engagementRings.budget.title')"
+        :collections="collections"
       />
     </Container>
   </div>

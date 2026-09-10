@@ -1,7 +1,9 @@
+import type { Collection } from "@/entities/collection";
 import type { QuickFilter } from "@/widgets/catalog-filters";
 import type { ProductShelfContent } from "../model/types";
 import quickFilters from "./mock/quick-filters.json";
 import shelves from "./mock/shelves.json";
+import collections from "./mock/collections.json";
 
 export function getQuickFilters(): QuickFilter[] {
   return quickFilters;
@@ -11,4 +13,8 @@ export function getQuickFilters(): QuickFilter[] {
 // the single place where mock data crosses into typed application code.
 export function getProductShelves(): ProductShelfContent[] {
   return shelves as ProductShelfContent[];
+}
+
+export function getBudgetCollections(): Collection[] {
+  return collections;
 }

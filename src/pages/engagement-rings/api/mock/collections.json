@@ -1,0 +1,34 @@
+[
+  {
+    "id": "under-150",
+    "label": "до 150 000 ₽",
+    "image": "/images/collections/under-150.jpg",
+    "to": "/engagement-rings/budget/under-150"
+  },
+  {
+    "id": "200-350",
+    "label": "200 000–350 000 ₽",
+    "image": "/images/collections/200-350.jpg",
+    "to": "/engagement-rings/budget/200-350"
+  },
+  {
+    "id": "350-600",
+    "label": "350 000–600 000 ₽",
+    "image": "/images/collections/350-600.jpg",
+    "to": "/engagement-rings/budget/350-600"
+  },
+  {
+    "id": "600-1000",
+    "label": "600 000–1 000 000 ₽",
+    "image": "/images/collections/600-1000.jpg",
+    "to": "/engagement-rings/budget/600-1000"
+  },
+  {
+    "id": "over-1000",
+    "label": "от 1 000 000 ₽",
+    "title": "Помолвочные кольца с крупным бриллиантом",
+    "image": "/images/collections/over-1000.jpg",
+    "to": "/engagement-rings/budget/over-1000",
+    "featured": true
+  }
+]

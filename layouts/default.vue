@@ -1,5 +1,10 @@
+<script setup lang="ts">
+import { PageHeader } from "@/widgets/page-header";
+</script>
+
 <template>
   <div class="default-layout">
+    <PageHeader />
     <main class="default-layout__main">
       <slot />
     </main>

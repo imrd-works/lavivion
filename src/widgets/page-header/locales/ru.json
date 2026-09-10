@@ -1,0 +1,18 @@
+{
+  "navLabel": "Основная навигация",
+  "logoLabel": "LA VIVION, на главную",
+  "links": {
+    "jewellery": "Украшения",
+    "engagement": "Помолвка и свадьба",
+    "gifts": "Подарки",
+    "exclusive": "Эксклюзивные украшения",
+    "house": "Дом LA VIVION"
+  },
+  "actions": {
+    "search": "Поиск",
+    "account": "Личный кабинет",
+    "favorites": "Избранное",
+    "cart": "Корзина"
+  },
+  "cta": "Связаться с нами"
+}

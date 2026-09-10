@@ -26,7 +26,7 @@ export default defineNuxtConfig({
   },
   app: {
     head: {
-      htmlAttrs: { lang: "en" },
+      htmlAttrs: { lang: "ru" },
       link: [{ rel: "icon", type: "image/svg+xml", href: "/favicon.svg" }],
     },
     pageTransition: { name: "fade", mode: "out-in" },

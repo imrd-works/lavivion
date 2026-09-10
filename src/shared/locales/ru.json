@@ -1,13 +1,13 @@
 {
   "common": {
-    "save": "Save",
-    "cancel": "Cancel",
-    "delete": "Delete",
-    "edit": "Edit",
-    "loading": "Loading..."
+    "save": "Сохранить",
+    "cancel": "Отмена",
+    "delete": "Удалить",
+    "edit": "Редактировать",
+    "loading": "Загрузка…"
   },
   "errors": {
-    "network": "Request error",
-    "unauthorized": "Authorization required"
+    "network": "Ошибка запроса",
+    "unauthorized": "Требуется авторизация"
   }
 }

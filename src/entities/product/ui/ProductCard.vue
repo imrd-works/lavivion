@@ -153,5 +153,14 @@ const { t } = useI18n();
     color: var(--color-text-primary);
     white-space: nowrap;
   }
+
+  // Off the two-row desktop grid the large card has no row to fill, so its
+  // media needs an explicit ratio instead of stretching.
+  @include bp-down("lg") {
+    &--large &__media {
+      flex: none;
+      aspect-ratio: 16 / 10;
+    }
+  }
 }
 </style>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Motion } from "@/shared/ui";
-import { REVEAL_DURATION, REVEAL_STEP } from "@/shared/config/motion";
+import { revealCascade } from "@/shared/config/motion";
 
 defineProps<{
   title: string;
@@ -10,15 +10,7 @@ defineProps<{
 </script>
 
 <template>
-  <Motion
-    tag="section"
-    class="showcase-hero"
-    preset="fade-up"
-    trigger="visible"
-    target="children"
-    :duration="REVEAL_DURATION"
-    :stagger="REVEAL_STEP"
-  >
+  <Motion v-bind="revealCascade" tag="section" class="showcase-hero">
     <img class="showcase-hero__image" :src="image" alt="" />
     <div class="showcase-hero__content">
       <h1 class="showcase-hero__title">{{ title }}</h1>
@@ -71,6 +63,38 @@ defineProps<{
     max-width: 432px;
     margin: 0;
     color: var(--color-text-secondary);
+  }
+
+  // Below the desktop width the text moves out from over the photo: the
+  // banner gets too short to hold the copy, and a light image cannot carry it.
+  @include bp-down("lg") {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-l);
+    aspect-ratio: auto;
+
+    &__image {
+      position: static;
+      height: auto;
+      aspect-ratio: 16 / 9;
+    }
+
+    &__content {
+      position: static;
+      padding: 0;
+      transform: none;
+    }
+
+    &__title,
+    &__description {
+      max-width: none;
+    }
+  }
+
+  @include bp-down("md") {
+    &__image {
+      aspect-ratio: 4 / 3;
+    }
   }
 }
 </style>

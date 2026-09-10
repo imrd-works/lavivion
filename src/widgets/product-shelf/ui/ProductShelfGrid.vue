@@ -2,6 +2,7 @@
 import { computed } from "vue";
 import { useI18n } from "vue-i18n";
 import { Button, Motion } from "@/shared/ui";
+import { revealCascade } from "@/shared/config/motion";
 import { ProductCard, type Product } from "@/entities/product";
 import { FavoriteButton } from "@/features/toggle-favorite";
 
@@ -9,9 +10,6 @@ const props = defineProps<{
   products: Product[];
   to: string;
   restCount: number;
-  revealDuration: number;
-  revealDelay: number;
-  revealStagger: number;
 }>();
 
 const { t } = useI18n();
@@ -21,15 +19,7 @@ const rest = computed(() => props.products.slice(1));
 </script>
 
 <template>
-  <Motion
-    class="product-shelf-grid"
-    preset="fade-up"
-    trigger="visible"
-    target="children"
-    :duration="revealDuration"
-    :delay="revealDelay"
-    :stagger="revealStagger"
-  >
+  <Motion v-bind="revealCascade" class="product-shelf-grid">
     <ProductCard
       v-if="featured"
       class="product-shelf-grid__featured"
@@ -62,6 +52,7 @@ const rest = computed(() => props.products.slice(1));
 
 <style lang="scss" scoped>
 /** @define product-shelf-grid */
+@use "shared/assets/styles/mixins" as *;
 
 .product-shelf-grid {
   display: grid;
@@ -76,6 +67,28 @@ const rest = computed(() => props.products.slice(1));
   &__more {
     align-self: center;
     justify-self: center;
+  }
+
+  @include bp-down("lg") {
+    grid-template-columns: repeat(2, 1fr);
+
+    &__featured {
+      grid-row: auto;
+      grid-column: span 2;
+    }
+  }
+
+  @include bp-down("sm") {
+    grid-template-columns: 1fr;
+
+    &__featured {
+      grid-column: span 1;
+    }
+
+    &__more {
+      justify-self: start;
+      padding-block: var(--spacing-l);
+    }
   }
 }
 </style>

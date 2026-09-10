@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Motion } from "@/shared/ui";
-import { REVEAL_DURATION, REVEAL_STEP } from "@/shared/config/motion";
+import { revealCascade } from "@/shared/config/motion";
 import type { QuickFilter } from "../model/types";
 
 defineProps<{
@@ -9,25 +9,19 @@ defineProps<{
 </script>
 
 <template>
-  <Motion
-    tag="ul"
-    class="quick-filter-tiles"
-    preset="fade-up"
-    trigger="visible"
-    target="children"
-    :duration="REVEAL_DURATION"
-    :stagger="REVEAL_STEP"
-  >
-    <li v-for="item in items" :key="item.id" class="quick-filter-tiles__item">
-      <NuxtLink :to="item.to" class="quick-filter-tiles__link">
-        <span class="quick-filter-tiles__media">
-          <span class="quick-filter-tiles__overlay" />
-          <img class="quick-filter-tiles__image" :src="item.image" alt="" />
-        </span>
-        <span class="quick-filter-tiles__label">{{ item.title }}</span>
-      </NuxtLink>
-    </li>
-  </Motion>
+  <div class="quick-filter-tiles">
+    <Motion v-bind="revealCascade" tag="ul" class="quick-filter-tiles__track">
+      <li v-for="item in items" :key="item.id" class="quick-filter-tiles__item">
+        <NuxtLink :to="item.to" class="quick-filter-tiles__link">
+          <span class="quick-filter-tiles__media">
+            <span class="quick-filter-tiles__overlay" />
+            <img class="quick-filter-tiles__image" :src="item.image" alt="" />
+          </span>
+          <span class="quick-filter-tiles__label">{{ item.title }}</span>
+        </NuxtLink>
+      </li>
+    </Motion>
+  </div>
 </template>
 
 <style lang="scss" scoped>
@@ -35,16 +29,47 @@ defineProps<{
 @use "shared/assets/styles/mixins" as *;
 
 .quick-filter-tiles {
-  display: flex;
-  gap: var(--spacing-2xl);
-  align-items: flex-start;
-  padding: 0;
-  margin: 0;
-  list-style: none;
+  @include scrollbar-hidden;
+
+  overflow-x: auto;
+  // The horizontal scrollbar area leaks a little vertical scroll, which would
+  // swallow wheel gestures meant for the page.
+  overflow-y: hidden;
+
+  @include bp-down("lg") {
+    scroll-snap-type: x mandatory;
+  }
+
+  &__track {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: var(--spacing-2xl);
+    align-items: start;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+
+    @include bp-down("xl") {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    // Below the desktop width the row turns into a carousel: a narrower tile
+    // leaves the next one peeking, which is the only hint that it scrolls.
+    @include bp-down("lg") {
+      grid-auto-flow: column;
+      grid-auto-columns: min(200px, 34%);
+      grid-template-columns: none;
+    }
+
+    @include bp-down("md") {
+      grid-auto-columns: min(160px, 45%);
+      gap: var(--spacing-l);
+    }
+  }
 
   &__item {
-    flex: 1 1 0;
     min-width: 0;
+    scroll-snap-align: start;
   }
 
   &__link {

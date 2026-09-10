@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useI18n } from "vue-i18n";
 import { Button, Motion } from "@/shared/ui";
-import { REVEAL_DURATION, REVEAL_STEP } from "@/shared/config/motion";
+import { revealCascade } from "@/shared/config/motion";
 import { bookingLink } from "../config/navigation";
 
 defineProps<{
@@ -12,15 +12,7 @@ const { t } = useI18n();
 </script>
 
 <template>
-  <Motion
-    tag="section"
-    class="expert-consultation"
-    preset="fade-up"
-    trigger="visible"
-    target="children"
-    :duration="REVEAL_DURATION"
-    :stagger="REVEAL_STEP"
-  >
+  <Motion v-bind="revealCascade" tag="section" class="expert-consultation">
     <div class="expert-consultation__text">
       <h2 class="expert-consultation__title">
         {{ t("expertConsultation.title") }}
@@ -80,6 +72,15 @@ const { t } = useI18n();
     width: 100%;
     height: 100%;
     object-fit: cover;
+  }
+
+  @include bp-down("lg") {
+    grid-template-columns: 1fr;
+
+    &__media {
+      grid-column: span 1;
+      aspect-ratio: 3 / 2;
+    }
   }
 }
 </style>

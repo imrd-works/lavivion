@@ -176,5 +176,23 @@ const { t } = useI18n();
     margin: 0;
     color: var(--color-text-primary);
   }
+
+  @include bp-down("lg") {
+    &__nav {
+      grid-template-columns: repeat(2, 1fr);
+      row-gap: var(--spacing-4xl);
+    }
+
+    &__group:nth-child(-n + 2) {
+      grid-row: auto;
+    }
+  }
+
+  @include bp-down("sm") {
+    &__nav {
+      grid-template-columns: 1fr;
+      row-gap: var(--spacing-3xl);
+    }
+  }
 }
 </style>

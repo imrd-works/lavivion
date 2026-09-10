@@ -82,6 +82,7 @@ const blog = getBlogPreview();
 
 <style lang="scss" scoped>
 /** @define engagement-rings-page */
+@use "shared/assets/styles/mixins" as *;
 
 .engagement-rings-page {
   display: flex;
@@ -97,6 +98,19 @@ const blog = getBlogPreview();
 
   &__banner {
     margin-block: var(--spacing-4xl);
+  }
+
+  @include bp-down("md") {
+    gap: var(--spacing-3xl);
+    padding-bottom: var(--spacing-4xl);
+
+    &__shelves {
+      gap: var(--spacing-3xl);
+    }
+
+    &__banner {
+      margin-block: var(--spacing-3xl);
+    }
   }
 }
 </style>

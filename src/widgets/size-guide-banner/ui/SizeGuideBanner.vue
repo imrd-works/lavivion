@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useI18n } from "vue-i18n";
 import { Button, Motion } from "@/shared/ui";
-import { REVEAL_DURATION, REVEAL_STEP } from "@/shared/config/motion";
+import { revealCascade } from "@/shared/config/motion";
 import { expertLink, sizeGuideLink } from "../config/navigation";
 
 defineProps<{
@@ -12,15 +12,7 @@ const { t } = useI18n();
 </script>
 
 <template>
-  <Motion
-    tag="section"
-    class="size-guide-banner"
-    preset="fade-up"
-    trigger="visible"
-    target="children"
-    :duration="REVEAL_DURATION"
-    :stagger="REVEAL_STEP"
-  >
+  <Motion v-bind="revealCascade" tag="section" class="size-guide-banner">
     <div class="size-guide-banner__media">
       <img class="size-guide-banner__image" :src="image" alt="" />
       <span class="size-guide-banner__fade" />
@@ -121,6 +113,28 @@ const { t } = useI18n();
     flex-direction: column;
     gap: var(--spacing-s);
     min-width: 0;
+  }
+
+  @include bp-down("lg") {
+    &__content {
+      flex-direction: column;
+      align-items: stretch;
+      padding: var(--spacing-2xl);
+    }
+  }
+
+  @include bp-down("md") {
+    grid-template-columns: 1fr;
+
+    &__media {
+      aspect-ratio: 16 / 9;
+    }
+
+    // The fade blends the photo into the panel beside it; stacked there is
+    // nothing to blend into.
+    &__fade {
+      display: none;
+    }
   }
 }
 </style>

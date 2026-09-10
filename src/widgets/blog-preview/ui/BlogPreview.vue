@@ -2,7 +2,7 @@
 import { computed } from "vue";
 import { useI18n } from "vue-i18n";
 import { Button, Motion } from "@/shared/ui";
-import { REVEAL_DURATION, REVEAL_STEP } from "@/shared/config/motion";
+import { revealCascadeFading, revealSection } from "@/shared/config/motion";
 import { ArticleCard, type Article } from "@/entities/article";
 import { allArticlesLink } from "../config/navigation";
 
@@ -20,12 +20,7 @@ const restCount = computed(() =>
 
 <template>
   <section class="blog-preview">
-    <Motion
-      class="blog-preview__heading"
-      preset="fade-up"
-      trigger="visible"
-      :duration="REVEAL_DURATION"
-    >
+    <Motion v-bind="revealSection" class="blog-preview__heading">
       <h2 class="blog-preview__title">{{ t("blogPreview.title") }}</h2>
       <Button variant="link" :to="allArticlesLink">
         {{ t("blogPreview.viewAll") }}
@@ -39,16 +34,7 @@ const restCount = computed(() =>
       tabindex="0"
       :aria-label="t('blogPreview.carouselLabel')"
     >
-      <Motion
-        tag="ul"
-        class="blog-preview__track"
-        preset="fade-in"
-        trigger="visible"
-        target="children"
-        :duration="REVEAL_DURATION"
-        :delay="REVEAL_STEP"
-        :stagger="REVEAL_STEP"
-      >
+      <Motion v-bind="revealCascadeFading" tag="ul" class="blog-preview__track">
         <li
           v-for="article in articles"
           :key="article.id"
@@ -115,6 +101,27 @@ const restCount = computed(() =>
 
   &__slide {
     scroll-snap-align: start;
+  }
+
+  @include bp-down("lg") {
+    grid-template-columns: 1fr;
+
+    &__heading {
+      @include hairline(bottom);
+
+      padding-right: 0;
+      padding-bottom: var(--spacing-2xl);
+    }
+
+    &__viewport {
+      grid-column: span 1;
+    }
+
+    // A narrower slide leaves the next card peeking, which is the only hint
+    // that the row scrolls.
+    &__track {
+      grid-auto-columns: min(280px, 78%);
+    }
   }
 }
 </style>

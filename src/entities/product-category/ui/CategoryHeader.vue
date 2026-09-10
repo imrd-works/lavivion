@@ -54,5 +54,11 @@ defineProps<{
     margin: 0;
     color: var(--color-text-secondary);
   }
+
+  @include bp-down("lg") {
+    &__title {
+      white-space: normal;
+    }
+  }
 }
 </style>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Motion } from "@/shared/ui";
-import { REVEAL_DURATION, REVEAL_STEP } from "@/shared/config/motion";
+import { revealCascade, revealSection } from "@/shared/config/motion";
 import { CollectionCard, type Collection } from "@/entities/collection";
 
 defineProps<{
@@ -11,18 +11,10 @@ defineProps<{
 
 <template>
   <section class="budget-collections">
-    <Motion preset="fade-up" trigger="visible" :duration="REVEAL_DURATION">
+    <Motion v-bind="revealSection">
       <h2 class="budget-collections__title">{{ title }}</h2>
     </Motion>
-    <Motion
-      class="budget-collections__grid"
-      preset="fade-up"
-      trigger="visible"
-      target="children"
-      :duration="REVEAL_DURATION"
-      :delay="REVEAL_STEP"
-      :stagger="REVEAL_STEP"
-    >
+    <Motion v-bind="revealCascade" class="budget-collections__grid">
       <CollectionCard
         v-for="collection in collections"
         :key="collection.id"
@@ -61,6 +53,24 @@ defineProps<{
   &__card--featured {
     grid-column: 3 / span 2;
     grid-row: 1 / span 2;
+  }
+
+  @include bp-down("lg") {
+    &__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    &__card--featured {
+      grid-row: auto;
+      grid-column: span 2;
+      aspect-ratio: 4 / 3;
+    }
+  }
+
+  @include bp-down("sm") {
+    &__grid {
+      gap: var(--spacing-l);
+    }
   }
 }
 </style>

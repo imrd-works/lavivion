@@ -76,7 +76,10 @@ export default [
       "import/ignore": ["virtual:.*", "\\.(scss|css)$"],
     },
     rules: {
-      "import/no-unresolved": ["error", { ignore: ["^virtual:"] }],
+      "import/no-unresolved": [
+        "error",
+        { ignore: ["^virtual:", "\\.svg\\?component$"] },
+      ],
     },
   },
   ...(noCyrillicEnabled

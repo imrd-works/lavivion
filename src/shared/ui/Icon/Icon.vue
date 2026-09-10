@@ -1,48 +1,49 @@
 <script setup lang="ts">
+import type { Component } from "vue";
 import { computed } from "vue";
+
+const icons = import.meta.glob<Component>("@/shared/assets/icons/*.svg", {
+  query: "?component",
+  import: "default",
+  eager: true,
+});
 
 const props = withDefaults(
   defineProps<{
     name: string;
     size?: number | string;
-    width?: number | string;
-    height?: number | string;
-    title?: string;
   }>(),
   {
     size: 24,
-    width: undefined,
-    height: undefined,
-    title: undefined,
   },
 );
 
-const sizeVal = computed(() => {
-  if (props.width !== undefined && props.height !== undefined)
-    return { width: props.width, height: props.height };
-  const s = props.size ?? 24;
-  return { width: s, height: s };
+const icon = computed(() => {
+  const entry = Object.entries(icons).find(([path]) =>
+    path.endsWith(`/${props.name}.svg`),
+  );
+  return entry?.[1];
 });
 </script>
 
 <template>
-  <svg
+  <component
+    :is="icon"
+    v-if="icon"
     class="icon"
-    :class="$attrs.class"
-    :width="sizeVal.width"
-    :height="sizeVal.height"
+    :width="size"
+    :height="size"
     aria-hidden="true"
-    role="img"
-  >
-    <title v-if="title">{{ title }}</title>
-    <use :href="`#icon-${name}`" />
-  </svg>
+    focusable="false"
+  />
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
+/** @define icon */
+
 .icon {
-  display: inline-block;
-  vertical-align: middle;
-  fill: currentColor;
+  display: block;
+  flex-shrink: 0;
+  color: inherit;
 }
 </style>

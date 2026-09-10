@@ -1,5 +1,6 @@
 import { defineNuxtConfig } from "nuxt/config";
 import { fileURLToPath, URL } from "node:url";
+import svgLoader from "vite-svg-loader";
 
 const siteUrl =
   process.env.NUXT_PUBLIC_SITE_URL ||
@@ -52,6 +53,18 @@ export default defineNuxtConfig({
     typeCheck: true,
   },
   vite: {
+    plugins: [
+      svgLoader({
+        svgoConfig: {
+          plugins: [
+            {
+              name: "preset-default",
+              params: { overrides: { removeViewBox: false } },
+            },
+          ],
+        },
+      }),
+    ],
     css: {
       preprocessorOptions: {
         scss: {

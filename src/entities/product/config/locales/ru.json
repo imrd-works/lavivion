@@ -1,0 +1,10 @@
+{
+  "priceFrom": "от {price}",
+  "metalsLabel": "Доступные металлы",
+  "metals": {
+    "white-gold": "Белое золото",
+    "yellow-gold": "Жёлтое золото",
+    "rose-gold": "Розовое золото",
+    "platinum": "Платина"
+  }
+}

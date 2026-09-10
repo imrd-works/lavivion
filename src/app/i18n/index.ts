@@ -14,7 +14,7 @@ function toNamespace(sliceName: string): string {
 function getSliceName(path: string): string {
   return (
     path.match(
-      /\/(?:pages|widgets|features|entities)\/([^/]+)\/locales\//,
+      /\/(?:pages|widgets|features|entities)\/([^/]+)\/config\/locales\//,
     )?.[1] ?? ""
   );
 }
@@ -34,15 +34,15 @@ function buildMessages(
 
 // Default locale is bundled eagerly so it is available during SSR / first paint.
 const eagerSharedDefault = import.meta.glob<LocaleModule>(
-  "@/shared/locales/ru.json",
+  "@/shared/config/locales/ru.json",
   { eager: true },
 );
 const eagerSlicesDefault = import.meta.glob<LocaleModule>(
   [
-    "@/pages/*/locales/ru.json",
-    "@/widgets/*/locales/ru.json",
-    "@/features/*/locales/ru.json",
-    "@/entities/*/locales/ru.json",
+    "@/pages/*/config/locales/ru.json",
+    "@/widgets/*/config/locales/ru.json",
+    "@/features/*/config/locales/ru.json",
+    "@/entities/*/config/locales/ru.json",
   ],
   { eager: true },
 );
@@ -65,27 +65,28 @@ const loadedLocales = new Set<string>([DEFAULT_LOCALE]);
 
 // Every other locale is loaded on demand (code-split).
 const lazySharedLoaders = import.meta.glob<LocaleModule>([
-  "@/shared/locales/*.json",
-  "!@/shared/locales/ru.json",
+  "@/shared/config/locales/*.json",
+  "!@/shared/config/locales/ru.json",
 ]);
 const lazySliceLoaders = import.meta.glob<LocaleModule>([
-  "@/pages/*/locales/*.json",
-  "@/widgets/*/locales/*.json",
-  "@/features/*/locales/*.json",
-  "@/entities/*/locales/*.json",
-  "!@/pages/*/locales/ru.json",
-  "!@/widgets/*/locales/ru.json",
-  "!@/features/*/locales/ru.json",
-  "!@/entities/*/locales/ru.json",
+  "@/pages/*/config/locales/*.json",
+  "@/widgets/*/config/locales/*.json",
+  "@/features/*/config/locales/*.json",
+  "@/entities/*/config/locales/*.json",
+  "!@/pages/*/config/locales/ru.json",
+  "!@/widgets/*/config/locales/ru.json",
+  "!@/features/*/config/locales/ru.json",
+  "!@/entities/*/config/locales/ru.json",
 ]);
 
 export async function loadLocaleAsync(locale: string): Promise<void> {
   if (loadedLocales.has(locale)) return;
 
-  const baseLoader = lazySharedLoaders[`@/shared/locales/${locale}.json`];
+  const baseLoader =
+    lazySharedLoaders[`@/shared/config/locales/${locale}.json`];
   if (!baseLoader) {
     console.warn(
-      `[i18n] Locale "${locale}" not found: add shared/locales/${locale}.json`,
+      `[i18n] Locale "${locale}" not found: add shared/config/locales/${locale}.json`,
     );
     return;
   }

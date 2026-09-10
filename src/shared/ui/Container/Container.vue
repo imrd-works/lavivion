@@ -17,7 +17,7 @@ withDefaults(
 
 <style lang="scss" scoped>
 /** @define container */
-@use "shared/styles/mixins" as *;
+@use "shared/assets/styles/mixins" as *;
 
 .container {
   @include fluid-between(

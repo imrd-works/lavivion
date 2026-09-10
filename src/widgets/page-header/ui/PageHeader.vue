@@ -50,7 +50,7 @@ const { t } = useI18n();
 
 <style lang="scss" scoped>
 /** @define page-header */
-@use "shared/styles/mixins" as *;
+@use "shared/assets/styles/mixins" as *;
 
 .page-header {
   background: var(--color-bg-surface);

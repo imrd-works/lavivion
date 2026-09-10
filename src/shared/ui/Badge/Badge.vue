@@ -22,7 +22,7 @@ withDefaults(
 
 <style lang="scss" scoped>
 /** @define badge */
-@use "shared/styles/mixins" as *;
+@use "shared/assets/styles/mixins" as *;
 
 .badge {
   @include text("body-s-light");

@@ -24,7 +24,7 @@ function goHome() {
 
 <style lang="scss" scoped>
 /** @define not-found-page */
-@use "shared/styles/mixins" as *;
+@use "shared/assets/styles/mixins" as *;
 
 .not-found-page {
   display: flex;

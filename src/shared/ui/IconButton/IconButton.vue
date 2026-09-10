@@ -33,7 +33,7 @@ withDefaults(
 
 <style lang="scss" scoped>
 /** @define icon-button */
-@use "shared/styles/mixins" as *;
+@use "shared/assets/styles/mixins" as *;
 
 .icon-button {
   @include reset-button;

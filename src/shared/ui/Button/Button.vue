@@ -41,7 +41,7 @@ withDefaults(
 
 <style lang="scss" scoped>
 /** @define btn */
-@use "shared/styles/mixins" as *;
+@use "shared/assets/styles/mixins" as *;
 
 .btn {
   @include text("heading-xs");

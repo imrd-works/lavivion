@@ -1,0 +1,10 @@
+{
+  "title": "About",
+  "text": "About our company and team",
+  "btnBackendError": "Backend error example",
+  "btnOverride": "Override example",
+  "seo": {
+    "title": "About",
+    "description": "Learn more about us."
+  }
+}

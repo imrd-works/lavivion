@@ -1,0 +1,9 @@
+{
+  "title": "Login",
+  "text": "Demo login without real authentication",
+  "btnLogin": "Log in",
+  "seo": {
+    "title": "Login",
+    "description": "Sign in to your account."
+  }
+}

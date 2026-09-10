@@ -1,0 +1,71 @@
+{
+  "name": "nuxt-starter",
+  "author": "Daniel Rassomakhin",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "dev": "nuxt dev",
+    "build": "npm run lint:check && nuxt typecheck && nuxt build",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "analyze": "nuxt analyze",
+    "lint": "eslint . --fix --max-warnings 0 && stylelint \"src/**/*.vue\" \"src/**/*.scss\" \"layouts/**/*.vue\" \"pages/**/*.vue\" --fix",
+    "lint:check": "eslint . --max-warnings 0 && stylelint \"src/**/*.vue\" \"src/**/*.scss\" \"layouts/**/*.vue\" \"pages/**/*.vue\"",
+    "typecheck": "nuxt typecheck",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "generate:api": "openapi-typescript ${OPENAPI_SPEC_URL:-./openapi.json} -o src/app/api/contracts.d.ts",
+    "prepare": "husky"
+  },
+  "dependencies": {
+    "@vueuse/core": "^11.3.0",
+    "axios": "^1.13.6",
+    "gsap": "^3.15.0",
+    "nuxt": "^4.2.0",
+    "pinia": "^3.0.4",
+    "sass": "^1.98.0",
+    "vue": "^3.5.30",
+    "vue-i18n": "^11.3.0",
+    "vue-sonner": "^2.0.9"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^21.1.0",
+    "@commitlint/config-conventional": "^21.1.0",
+    "@eslint/js": "^9.39.1",
+    "@nuxtjs/robots": "^6.1.2",
+    "@nuxtjs/sitemap": "^8.2.2",
+    "@types/node": "^24.12.0",
+    "eslint": "^9.39.1",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-import-resolver-typescript": "^3.6.3",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-no-cyrillic-string": "^1.0.5",
+    "eslint-plugin-prettier": "^5.5.5",
+    "eslint-plugin-vue": "^10.8.0",
+    "eslint-plugin-vuejs-accessibility": "^2.5.0",
+    "globals": "^17.4.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.0.8",
+    "openapi-typescript": "^7.13.0",
+    "postcss-html": "^1.8.1",
+    "postcss-scss": "^4.0.9",
+    "prettier": "^3.8.1",
+    "stylelint": "^16.26.1",
+    "stylelint-selector-bem-pattern": "^4.0.1",
+    "typescript": "~5.9.3",
+    "typescript-eslint": "^8.57.0",
+    "vue-eslint-parser": "^10.4.0",
+    "vue-tsc": "^3.2.5"
+  },
+  "lint-staged": {
+    "*.{js,ts,vue}": "eslint --fix --max-warnings 0 --no-warn-ignored",
+    "*.{vue,scss,css}": "stylelint --fix",
+    "*.{json,md,yml,yaml}": "prettier --write"
+  },
+  "overrides": {
+    "braces": ">=3.0.3",
+    "micromatch": ">=4.0.8",
+    "postcss": ">=8.4.31"
+  }
+}

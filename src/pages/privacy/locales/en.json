@@ -1,0 +1,10 @@
+{
+  "title": "Privacy Policy",
+  "text": "Your privacy matters to us",
+  "btnBackendError": "Backend error example",
+  "btnOverride": "Override example",
+  "seo": {
+    "title": "Privacy Policy",
+    "description": "Our privacy policy and how we handle your data."
+  }
+}

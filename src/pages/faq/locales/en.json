@@ -1,0 +1,10 @@
+{
+  "title": "FAQ",
+  "text": "Frequently asked questions",
+  "btnBackendError": "Backend error example",
+  "btnOverride": "Override example",
+  "seo": {
+    "title": "FAQ",
+    "description": "Frequently asked questions."
+  }
+}

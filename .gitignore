@@ -1,0 +1,13 @@
+.DS_Store
+**/.DS_Store
+
+node_modules/
+.nuxt/
+.output/
+dist/
+coverage/
+
+.env
+.env.*
+!.env.example
+.cursor

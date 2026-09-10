@@ -1,0 +1,8 @@
+{
+  "title": "Dashboard",
+  "greeting": "Hello, {name}!",
+  "seo": {
+    "title": "Dashboard",
+    "description": "Your personal dashboard."
+  }
+}

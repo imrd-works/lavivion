@@ -1,0 +1,25 @@
+{
+  "extends": "./.nuxt/tsconfig.json",
+  "compilerOptions": {
+    "types": ["node"],
+    "baseUrl": ".",
+    "paths": {
+      "@": ["./src"],
+      "@/*": ["./src/*"],
+      "@/api": ["./src/app/api"],
+      "@/api/*": ["./src/app/api/*"],
+      "@/i18n": ["./src/app/i18n"],
+      "@/i18n/*": ["./src/app/i18n/*"],
+      "@/stores": ["./src/shared/stores"],
+      "@/stores/*": ["./src/shared/stores/*"],
+      "@/composables": ["./src/shared/composables"],
+      "@/composables/*": ["./src/shared/composables/*"],
+      "@/locales": ["./src/shared/locales"],
+      "@/locales/*": ["./src/shared/locales/*"],
+      "@/shared/styles": ["./src/assets/styles"],
+      "@/shared/styles/*": ["./src/assets/styles/*"],
+      "#app": ["./node_modules/nuxt/dist/app"],
+      "#app/*": ["./node_modules/nuxt/dist/app/*"]
+    }
+  }
+}

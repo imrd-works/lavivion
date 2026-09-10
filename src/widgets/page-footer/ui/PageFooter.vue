@@ -27,7 +27,6 @@ const { t } = useI18n();
           <ul v-else class="page-footer__socials">
             <li v-for="link in group.links" :key="link.key">
               <IconButton
-                tag="NuxtLink"
                 class="page-footer__social"
                 :to="link.to"
                 :icon="link.icon"

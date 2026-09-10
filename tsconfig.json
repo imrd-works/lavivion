@@ -6,6 +6,7 @@
     "paths": {
       "@": ["./src"],
       "@/*": ["./src/*"],
+      "#components": ["./.nuxt/components"],
       "#app": ["./node_modules/nuxt/dist/app"],
       "#app/*": ["./node_modules/nuxt/dist/app/*"]
     }

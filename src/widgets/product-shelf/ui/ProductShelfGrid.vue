@@ -62,12 +62,7 @@ const rest = computed(() => props.products.slice(1));
             />
           </template>
         </ProductCard>
-        <Button
-          class="product-shelf-grid__more"
-          tag="NuxtLink"
-          variant="link"
-          :to="to"
-        >
+        <Button class="product-shelf-grid__more" variant="link" :to="to">
           {{ t("productShelf.viewAll") }}
           <template #suffix>+{{ restCount }}</template>
         </Button>

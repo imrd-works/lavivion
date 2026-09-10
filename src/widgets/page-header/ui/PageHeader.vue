@@ -33,13 +33,12 @@ const { t } = useI18n();
             <IconButton
               v-for="action in actionLinks"
               :key="action.key"
-              tag="NuxtLink"
               :to="action.to"
               :icon="action.icon"
               :label="t(`pageHeader.actions.${action.key}`)"
             />
           </div>
-          <Button tag="NuxtLink" :to="contactsLink">
+          <Button :to="contactsLink">
             {{ t("pageHeader.cta") }}
           </Button>
         </div>

@@ -1,12 +1,15 @@
 <script setup lang="ts">
 import type { Component } from "vue";
+import { computed } from "vue";
+import { NuxtLink } from "#components";
 import Icon from "@/shared/ui/Icon/Icon.vue";
 
-withDefaults(
+const props = withDefaults(
   defineProps<{
     variant?: "primary" | "outline" | "text" | "link";
     size?: "s" | "l";
     tag?: string | Component;
+    to?: string;
     disabled?: boolean;
     icon?: string;
   }>(),
@@ -14,20 +17,25 @@ withDefaults(
     variant: "primary",
     size: "s",
     tag: "button",
+    to: undefined,
     disabled: false,
     icon: undefined,
   },
 );
+
+const component = computed(() => (props.to ? NuxtLink : props.tag));
+const isButton = computed(() => component.value === "button");
 </script>
 
 <template>
   <component
-    :is="tag"
+    :is="component"
     class="btn"
     :class="[`btn--${variant}`, `btn--${size}`]"
-    :type="tag === 'button' ? 'button' : undefined"
-    :disabled="tag === 'button' ? disabled : undefined"
-    :aria-disabled="tag !== 'button' && disabled ? 'true' : undefined"
+    :to="to"
+    :type="isButton ? 'button' : undefined"
+    :disabled="isButton ? disabled : undefined"
+    :aria-disabled="!isButton && disabled ? 'true' : undefined"
   >
     <span class="btn__label">
       <slot />

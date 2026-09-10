@@ -1,25 +1,24 @@
 <script setup lang="ts">
-import { useRouter } from "vue-router";
 import { useI18n } from "vue-i18n";
+import { Button, Container } from "@/shared/ui";
 import { usePageSeo } from "../lib/usePageSeo";
 
 usePageSeo();
-const router = useRouter();
-const { t } = useI18n();
 
-function goHome() {
-  router.push("/");
-}
+const { t } = useI18n();
 </script>
 
 <template>
-  <div class="not-found-page">
-    <h1 class="not-found-page__code">404</h1>
-    <p class="not-found-page__text">{{ t("notFound.text") }}</p>
-    <button type="button" class="not-found-page__btn" @click="goHome">
-      {{ t("notFound.btnHome") }}
-    </button>
-  </div>
+  <Container>
+    <section class="not-found-page">
+      <p class="not-found-page__code">404</p>
+      <h1 class="not-found-page__title">{{ t("notFound.title") }}</h1>
+      <p class="not-found-page__text">{{ t("notFound.text") }}</p>
+      <Button to="/" size="l">
+        {{ t("notFound.btnHome") }}
+      </Button>
+    </section>
+  </Container>
 </template>
 
 <style lang="scss" scoped>
@@ -29,35 +28,30 @@ function goHome() {
 .not-found-page {
   display: flex;
   flex-direction: column;
+  gap: var(--spacing-l);
   align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  padding: var(--spacing-m);
+  padding-block: var(--spacing-5xl);
+  text-align: center;
 
   &__code {
-    margin-bottom: var(--spacing-s);
-    color: var(--color-action-primary-bg);
-    @include text("display-s");
+    @include text("heading-xl");
+
+    margin: 0;
+    color: var(--color-text-brand);
+  }
+
+  &__title {
+    @include text("heading-l");
+
+    margin: 0;
+    color: var(--color-text-primary);
   }
 
   &__text {
-    margin-bottom: var(--spacing-m);
+    @include text("body-m");
+
+    margin: 0;
     color: var(--color-text-secondary);
-  }
-
-  &__btn {
-    padding: var(--spacing-s) var(--spacing-m);
-    color: var(--color-action-primary-fg);
-    background: var(--color-action-primary-bg);
-    border: none;
-    border-radius: var(--radius-m);
-    cursor: pointer;
-    transition: background-color var(--duration-fast) var(--ease-standard);
-    @include text("label-l");
-
-    &:hover {
-      background: var(--color-action-primary-bg-hover);
-    }
   }
 }
 </style>

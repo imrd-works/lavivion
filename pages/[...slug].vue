@@ -6,10 +6,6 @@ const event = useRequestEvent();
 if (event) {
   setResponseStatus(event, 404);
 }
-
-definePageMeta({
-  layout: false,
-});
 </script>
 
 <template>

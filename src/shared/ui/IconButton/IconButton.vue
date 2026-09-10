@@ -1,28 +1,36 @@
 <script setup lang="ts">
 import type { Component } from "vue";
+import { computed } from "vue";
+import { NuxtLink } from "#components";
 import Icon from "@/shared/ui/Icon/Icon.vue";
 
-withDefaults(
+const props = withDefaults(
   defineProps<{
     icon: string;
     label: string;
     size?: 24 | 40;
     tag?: string | Component;
+    to?: string;
     pressed?: boolean;
   }>(),
   {
     size: 24,
     tag: "button",
+    to: undefined,
     pressed: undefined,
   },
 );
+
+const component = computed(() => (props.to ? NuxtLink : props.tag));
+const isButton = computed(() => component.value === "button");
 </script>
 
 <template>
   <component
-    :is="tag"
+    :is="component"
     class="icon-button"
-    :type="tag === 'button' ? 'button' : undefined"
+    :to="to"
+    :type="isButton ? 'button' : undefined"
     :aria-label="label"
     :aria-pressed="pressed"
     :style="{ '--icon-button-size': `${size}px` }"

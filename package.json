@@ -1,8 +1,9 @@
 {
-  "name": "nuxt-starter",
+  "name": "lavivion",
+  "version": "0.1.0",
+  "description": "LA VIVION engagement rings showcase page on Nuxt 4 with Feature-Sliced Design",
   "author": "Daniel Rassomakhin",
   "private": true,
-  "version": "0.0.1",
   "type": "module",
   "scripts": {
     "dev": "nuxt dev",
@@ -16,7 +17,8 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "generate:api": "openapi-typescript ${OPENAPI_SPEC_URL:-./openapi.json} -o src/app/api/contracts.d.ts",
-    "prepare": "husky"
+    "prepare": "husky",
+    "postinstall": "nuxt prepare"
   },
   "dependencies": {
     "@vueuse/core": "^11.3.0",

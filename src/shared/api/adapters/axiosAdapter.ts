@@ -6,7 +6,7 @@ import axios, {
 } from "axios";
 import type { ApiClient, ApiRequestConfig, ApiResponse } from "../client";
 import { useToast } from "@/shared/lib/useToast";
-import { useUserStore } from "@/shared/stores";
+import { getAuthToken, reportUnauthorized } from "../session";
 
 interface AxiosConfigWithApi extends AxiosRequestConfig {
   __apiConfig?: ApiRequestConfig;
@@ -41,7 +41,7 @@ function createAxiosClient(): ApiClient {
 
   instance.interceptors.request.use(
     (config: InternalAxiosRequestConfig) => {
-      const token = useUserStore().token;
+      const token = getAuthToken();
       if (token) config.headers.set("Authorization", `Bearer ${token}`);
       return config;
     },
@@ -66,7 +66,7 @@ function createAxiosClient(): ApiClient {
         useToast().error(msg);
       }
       if (axiosError?.response?.status === 401) {
-        useUserStore().logout();
+        reportUnauthorized();
       }
       return Promise.reject(error);
     },

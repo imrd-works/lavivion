@@ -57,6 +57,7 @@ const { t } = useI18n();
     gap: var(--spacing-2xl);
     align-items: center;
     justify-content: space-between;
+    height: 64px;
   }
 
   &__logo {
@@ -93,10 +94,6 @@ const { t } = useI18n();
     &__nav,
     &__actions {
       display: none;
-    }
-
-    &__row {
-      height: 64px;
     }
   }
 }

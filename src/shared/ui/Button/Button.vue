@@ -63,17 +63,11 @@ const isButton = computed(() => component.value === "button");
   cursor: pointer;
   user-select: none;
   border: 1px solid transparent;
-  border-radius: var(--radius-none);
   transition:
     color var(--duration-fast) var(--ease-standard),
     background-color var(--duration-fast) var(--ease-standard),
     border-color var(--duration-fast) var(--ease-standard),
     opacity var(--duration-fast) var(--ease-standard);
-
-  &:focus-visible {
-    outline: 2px solid var(--color-border-focus);
-    outline-offset: 2px;
-  }
 
   &--s {
     min-height: 36px;

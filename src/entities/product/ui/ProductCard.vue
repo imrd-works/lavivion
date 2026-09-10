@@ -119,7 +119,8 @@ const { t } = useI18n();
   }
 
   // The link stretches over the whole card so the entire tile is clickable
-  // while the accessible name stays on the product title alone.
+  // while the accessible name stays on the product title alone. Its own box is
+  // the truncated title, so the focus ring is drawn around the card instead.
   &__link {
     color: inherit;
 
@@ -128,6 +129,16 @@ const { t } = useI18n();
       inset: 0;
       content: "";
     }
+
+    &:focus-visible {
+      outline: none;
+    }
+  }
+
+  &:has(.product-card__link:focus-visible) {
+    outline: 2px solid var(--color-border-focus);
+    outline-offset: 2px;
+    border-radius: 2px;
   }
 
   &__subtitle {

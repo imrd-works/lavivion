@@ -55,10 +55,5 @@ const isButton = computed(() => component.value === "button");
   @include hover-supported {
     opacity: 0.7;
   }
-
-  &:focus-visible {
-    outline: 2px solid var(--color-border-focus);
-    outline-offset: 2px;
-  }
 }
 </style>

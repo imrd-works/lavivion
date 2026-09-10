@@ -85,11 +85,13 @@ $collapse-at: (
 
 .primary-nav {
   flex: 1;
+  align-self: stretch;
   min-width: 0;
 
   &__list {
     display: flex;
     gap: var(--spacing-3xl);
+    height: 100%;
     align-items: center;
     // "safe" keeps the row left-aligned if it ever overflows, otherwise
     // centring would clip the first item as well as the last. Clipping the
@@ -101,7 +103,10 @@ $collapse-at: (
   }
 
   &__item {
+    display: flex;
     flex-shrink: 0;
+    align-items: center;
+    align-self: stretch;
   }
 
   &__link {
@@ -110,7 +115,9 @@ $collapse-at: (
     display: flex;
     gap: var(--spacing-2xs);
     align-items: center;
-    height: 64px;
+    // Shorter than the row on purpose: a link as tall as the header would push
+    // its focus ring past the top edge of the window, where it gets cut off.
+    height: 40px;
     color: var(--color-text-primary);
     white-space: nowrap;
     transition: opacity var(--duration-fast) var(--ease-standard);
@@ -128,11 +135,6 @@ $collapse-at: (
   &__trigger {
     @include reset-button;
     @include text("heading-xs");
-
-    &:focus-visible {
-      outline: 2px solid var(--color-border-focus);
-      outline-offset: 2px;
-    }
   }
 
   &__menu {
@@ -178,7 +180,7 @@ $collapse-at: (
   @each $index, $width in $collapse-at {
     @include bp-down($width) {
       &__more {
-        display: block;
+        display: flex;
       }
 
       &__item:nth-child(#{$index}) {

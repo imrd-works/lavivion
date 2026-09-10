@@ -80,7 +80,13 @@ const restCount = computed(() =>
     @include scrollbar-hidden;
 
     grid-column: span 3;
+    // Room for the focus ring of a card, taken back from the layout below.
+    // Snapping ignores the padding on its own, hence the matching scroll
+    // padding, otherwise the first and last card sit flush with the edge.
+    padding: 4px;
+    margin: -4px;
     overflow-x: auto;
+    scroll-padding: 4px;
     // The horizontal scrollbar area leaks a few pixels of vertical scroll,
     // which would swallow wheel gestures meant for the page.
     overflow-y: hidden;

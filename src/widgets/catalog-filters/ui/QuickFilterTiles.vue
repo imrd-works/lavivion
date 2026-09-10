@@ -31,7 +31,13 @@ defineProps<{
 .quick-filter-tiles {
   @include scrollbar-hidden;
 
+  // A scrollport clips the focus ring of the tile inside it. The padding gives
+  // the ring room and the negative margin gives the space back to the layout;
+  // snapping ignores that padding, so it is repeated as scroll padding.
+  padding: 4px;
+  margin: -4px;
   overflow-x: auto;
+  scroll-padding: 4px;
   // The horizontal scrollbar area leaks a little vertical scroll, which would
   // swallow wheel gestures meant for the page.
   overflow-y: hidden;

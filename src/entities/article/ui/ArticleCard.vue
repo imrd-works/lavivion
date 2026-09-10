@@ -82,7 +82,8 @@ defineProps<{
   }
 
   // The link stretches over the card so the whole tile is clickable while the
-  // accessible name stays on the article title alone.
+  // accessible name stays on the article title alone. Its own box is just the
+  // title, so the focus ring is drawn around the card instead.
   &__link {
     color: inherit;
 
@@ -91,6 +92,16 @@ defineProps<{
       inset: 0;
       content: "";
     }
+
+    &:focus-visible {
+      outline: none;
+    }
+  }
+
+  &:has(.article-card__link:focus-visible) {
+    outline: 2px solid var(--color-border-focus);
+    outline-offset: 2px;
+    border-radius: 2px;
   }
 }
 </style>

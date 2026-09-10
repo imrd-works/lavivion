@@ -21,7 +21,6 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "@vueuse/core": "^11.3.0",
     "axios": "^1.13.6",
     "gsap": "^3.15.0",
     "nuxt": "^4.2.0",

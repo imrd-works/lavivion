@@ -2,6 +2,8 @@
 import { useI18n } from "vue-i18n";
 import { Button, Container, IconButton, Logo } from "@/shared/ui";
 import { actionLinks, contactsLink, primaryLinks } from "../config/navigation";
+import PrimaryNav from "./PrimaryNav.vue";
+import MobileNav from "./MobileNav.vue";
 
 const { t } = useI18n();
 </script>
@@ -17,16 +19,7 @@ const { t } = useI18n();
           />
         </NuxtLink>
 
-        <nav class="page-header__nav" :aria-label="t('pageHeader.navLabel')">
-          <NuxtLink
-            v-for="link in primaryLinks"
-            :key="link.key"
-            :to="link.to"
-            class="page-header__link"
-          >
-            {{ t(`pageHeader.links.${link.key}`) }}
-          </NuxtLink>
-        </nav>
+        <PrimaryNav class="page-header__nav" :links="primaryLinks" />
 
         <div class="page-header__actions">
           <div class="page-header__icons">
@@ -42,6 +35,8 @@ const { t } = useI18n();
             {{ t("pageHeader.cta") }}
           </Button>
         </div>
+
+        <MobileNav />
       </div>
     </Container>
   </header>
@@ -55,11 +50,12 @@ const { t } = useI18n();
   background: var(--color-bg-surface);
 
   &__row {
+    @include hairline(bottom);
+
     display: flex;
     gap: var(--spacing-2xl);
     align-items: center;
     justify-content: space-between;
-    @include hairline(bottom);
   }
 
   &__logo {
@@ -76,27 +72,6 @@ const { t } = useI18n();
     width: 173.26px;
   }
 
-  &__nav {
-    display: flex;
-    gap: var(--spacing-3xl);
-    align-items: center;
-  }
-
-  &__link {
-    @include text("heading-xs");
-
-    display: flex;
-    align-items: center;
-    height: 64px;
-    color: var(--color-text-primary);
-    text-align: center;
-    transition: opacity var(--duration-fast) var(--ease-standard);
-
-    @include hover-supported {
-      opacity: 0.7;
-    }
-  }
-
   &__actions {
     display: flex;
     flex-shrink: 0;
@@ -109,6 +84,19 @@ const { t } = useI18n();
     display: flex;
     gap: var(--spacing-2xl);
     align-items: center;
+  }
+
+  // Below the tablet breakpoint the row keeps only the logo and the burger:
+  // the links and actions move into the side panel.
+  @include bp-down("md") {
+    &__nav,
+    &__actions {
+      display: none;
+    }
+
+    &__row {
+      height: 64px;
+    }
   }
 }
 </style>

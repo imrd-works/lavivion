@@ -59,10 +59,6 @@ const { t } = useI18n();
   flex-direction: column;
   background: var(--color-bg-surface-subtle);
 
-  &--large {
-    height: 100%;
-  }
-
   &__media {
     position: relative;
     overflow: hidden;

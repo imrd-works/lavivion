@@ -110,8 +110,9 @@ withDefaults(
   }
 
   &--link {
+    @include hairline(bottom, var(--color-border-brand));
+
     padding: var(--spacing-xs) var(--spacing-2xs);
-    border-bottom: 1px solid var(--color-border-brand);
   }
 
   &__suffix {

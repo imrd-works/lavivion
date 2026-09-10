@@ -1,0 +1,255 @@
+[
+  {
+    "category": {
+      "id": "classic",
+      "title": "Классические",
+      "description": "Классические кольца с одним бриллиантом выбирают, когда хочется точной формы, которая легко считывается как помолвочная и хорошо выглядит каждый день. Универсальный выбор, подходящий всем.",
+      "count": 28
+    },
+    "products": [
+      {
+        "id": "classic-1",
+        "title": "Lyre / Лира",
+        "subtitle": "Помолвочное кольцо огранка круг",
+        "priceFrom": 166350,
+        "image": "/images/products/classic-lifestyle.jpg",
+        "metals": ["white-gold", "yellow-gold", "rose-gold", "platinum"],
+        "to": "/product/classic-1",
+        "badge": "Placeholder"
+      },
+      {
+        "id": "classic-2",
+        "title": "Lyre / Лира",
+        "subtitle": "Помолвочное кольцо",
+        "priceFrom": 166350,
+        "image": "/images/products/classic-product.png",
+        "metals": ["white-gold", "yellow-gold", "rose-gold", "platinum"],
+        "to": "/product/classic-2"
+      },
+      {
+        "id": "classic-3",
+        "title": "Lyre / Лира",
+        "subtitle": "Помолвочное кольцо",
+        "priceFrom": 166350,
+        "image": "/images/products/classic-product.png",
+        "metals": ["white-gold", "yellow-gold", "rose-gold", "platinum"],
+        "to": "/product/classic-3",
+        "badge": "Placeholder"
+      },
+      {
+        "id": "classic-4",
+        "title": "Lyre / Лира",
+        "subtitle": "Помолвочное кольцо",
+        "priceFrom": 166350,
+        "image": "/images/products/classic-product.png",
+        "metals": ["white-gold", "yellow-gold", "rose-gold", "platinum"],
+        "to": "/product/classic-4"
+      }
+    ],
+    "to": "/engagement-rings/classic"
+  },
+  {
+    "category": {
+      "id": "pave",
+      "title": "С бриллиантовой дорожкой",
+      "description": "Кольца с бриллиантовой дорожкой подойдут девушке, которая хочет более заметное сияние на руке. Маленькие бриллианты по бокам усиливают центральный камень и делают кольцо выразительнее, поэтому это хороший выбор, если ей нравятся изящные, но не слишком простые украшения.",
+      "count": 28
+    },
+    "products": [
+      {
+        "id": "pave-1",
+        "title": "Lyre / Лира",
+        "subtitle": "Помолвочное кольцо огранка круг",
+        "priceFrom": 166350,
+        "image": "/images/products/pave-lifestyle.jpg",
+        "metals": ["white-gold", "yellow-gold", "rose-gold", "platinum"],
+        "to": "/product/pave-1",
+        "badge": "Placeholder"
+      },
+      {
+        "id": "pave-2",
+        "title": "Lyre / Лира",
+        "subtitle": "Помолвочное кольцо",
+        "priceFrom": 166350,
+        "image": "/images/products/pave-product.png",
+        "metals": ["white-gold", "yellow-gold", "rose-gold", "platinum"],
+        "to": "/product/pave-2",
+        "badge": "Placeholder"
+      },
+      {
+        "id": "pave-3",
+        "title": "Lyre / Лира",
+        "subtitle": "Помолвочное кольцо",
+        "priceFrom": 166350,
+        "image": "/images/products/pave-product.png",
+        "metals": ["white-gold", "yellow-gold", "rose-gold", "platinum"],
+        "to": "/product/pave-3",
+        "badge": "Placeholder"
+      },
+      {
+        "id": "pave-4",
+        "title": "Lyre / Лира",
+        "subtitle": "Помолвочное кольцо",
+        "priceFrom": 166350,
+        "image": "/images/products/pave-product.png",
+        "metals": ["white-gold", "yellow-gold", "rose-gold", "platinum"],
+        "to": "/product/pave-4",
+        "badge": "Placeholder"
+      }
+    ],
+    "to": "/engagement-rings/pave"
+  },
+  {
+    "category": {
+      "id": "three-stone",
+      "title": "С тремя камнями",
+      "description": "Кольца с тремя камнями подойдут девушке, которой хочется, чтобы кольцо выглядело крупнее и заметнее на руке. Боковые бриллианты добавляют ширину и сияние вокруг центрального камня, поэтому модель смотрится более объёмной и торжественной, чем классическое кольцо с одним бриллиантом.",
+      "count": 28
+    },
+    "products": [
+      {
+        "id": "three-stone-1",
+        "title": "Lyre / Лира",
+        "subtitle": "Помолвочное кольцо огранка круг",
+        "priceFrom": 166350,
+        "image": "/images/products/three-stone-lifestyle.jpg",
+        "metals": ["white-gold", "yellow-gold", "rose-gold", "platinum"],
+        "to": "/product/three-stone-1",
+        "badge": "Placeholder"
+      },
+      {
+        "id": "three-stone-2",
+        "title": "Lyre / Лира",
+        "subtitle": "Помолвочное кольцо",
+        "priceFrom": 166350,
+        "image": "/images/products/three-stone-product.png",
+        "metals": ["white-gold", "yellow-gold", "rose-gold", "platinum"],
+        "to": "/product/three-stone-2",
+        "badge": "Placeholder"
+      },
+      {
+        "id": "three-stone-3",
+        "title": "Lyre / Лира",
+        "subtitle": "Помолвочное кольцо",
+        "priceFrom": 166350,
+        "image": "/images/products/three-stone-product.png",
+        "metals": ["white-gold", "yellow-gold", "rose-gold", "platinum"],
+        "to": "/product/three-stone-3",
+        "badge": "Placeholder"
+      },
+      {
+        "id": "three-stone-4",
+        "title": "Lyre / Лира",
+        "subtitle": "Помолвочное кольцо",
+        "priceFrom": 166350,
+        "image": "/images/products/three-stone-product.png",
+        "metals": ["white-gold", "yellow-gold", "rose-gold", "platinum"],
+        "to": "/product/three-stone-4",
+        "badge": "Placeholder"
+      }
+    ],
+    "to": "/engagement-rings/three-stone"
+  },
+  {
+    "category": {
+      "id": "halo",
+      "title": "С ободком halo",
+      "description": "Мелкие бриллианты вокруг визуально увеличивают главный камень и делают кольцо намного более выразительным, поэтому это хороший выбор, если ей нравятся украшения, которые сразу видны на руке.",
+      "count": 28
+    },
+    "products": [
+      {
+        "id": "halo-1",
+        "title": "Lyre / Лира",
+        "subtitle": "Помолвочное кольцо огранка круг",
+        "priceFrom": 166350,
+        "image": "/images/products/halo-lifestyle.jpg",
+        "metals": ["white-gold", "yellow-gold", "rose-gold", "platinum"],
+        "to": "/product/halo-1",
+        "badge": "Placeholder"
+      },
+      {
+        "id": "halo-2",
+        "title": "Lyre / Лира",
+        "subtitle": "Помолвочное кольцо",
+        "priceFrom": 166350,
+        "image": "/images/products/halo-product.png",
+        "metals": ["white-gold", "yellow-gold", "rose-gold", "platinum"],
+        "to": "/product/halo-2",
+        "badge": "Placeholder"
+      },
+      {
+        "id": "halo-3",
+        "title": "Lyre / Лира",
+        "subtitle": "Помолвочное кольцо",
+        "priceFrom": 166350,
+        "image": "/images/products/halo-product.png",
+        "metals": ["white-gold", "yellow-gold", "rose-gold", "platinum"],
+        "to": "/product/halo-3",
+        "badge": "Placeholder"
+      },
+      {
+        "id": "halo-4",
+        "title": "Lyre / Лира",
+        "subtitle": "Помолвочное кольцо",
+        "priceFrom": 166350,
+        "image": "/images/products/halo-product.png",
+        "metals": ["white-gold", "yellow-gold", "rose-gold", "platinum"],
+        "to": "/product/halo-4",
+        "badge": "Placeholder"
+      }
+    ],
+    "to": "/engagement-rings/halo"
+  },
+  {
+    "category": {
+      "id": "exclusive",
+      "title": "Эксклюзивные помолвочные кольца",
+      "description": "Мелкие бриллианты вокруг визуально увеличивают главный камень и делают кольцо намного более выразительным, поэтому это хороший выбор, если ей нравятся украшения, которые сразу видны на руке.",
+      "count": 28
+    },
+    "products": [
+      {
+        "id": "exclusive-1",
+        "title": "Lyre / Лира",
+        "subtitle": "Помолвочное кольцо огранка круг",
+        "priceFrom": 166350,
+        "image": "/images/products/exclusive-lifestyle.jpg",
+        "metals": ["white-gold", "yellow-gold", "rose-gold", "platinum"],
+        "to": "/product/exclusive-1",
+        "badge": "Placeholder"
+      },
+      {
+        "id": "exclusive-2",
+        "title": "Lyre / Лира",
+        "subtitle": "Помолвочное кольцо",
+        "priceFrom": 166350,
+        "image": "/images/products/exclusive-product.png",
+        "metals": ["white-gold", "yellow-gold", "rose-gold", "platinum"],
+        "to": "/product/exclusive-2",
+        "badge": "Placeholder"
+      },
+      {
+        "id": "exclusive-3",
+        "title": "Lyre / Лира",
+        "subtitle": "Помолвочное кольцо",
+        "priceFrom": 166350,
+        "image": "/images/products/exclusive-product.png",
+        "metals": ["white-gold", "yellow-gold", "rose-gold", "platinum"],
+        "to": "/product/exclusive-3",
+        "badge": "Placeholder"
+      },
+      {
+        "id": "exclusive-4",
+        "title": "Lyre / Лира",
+        "subtitle": "Помолвочное кольцо",
+        "priceFrom": 166350,
+        "image": "/images/products/exclusive-product.png",
+        "metals": ["white-gold", "yellow-gold", "rose-gold", "platinum"],
+        "to": "/product/exclusive-4",
+        "badge": "Placeholder"
+      }
+    ],
+    "to": "/engagement-rings/exclusive"
+  }
+]

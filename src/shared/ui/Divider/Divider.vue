@@ -5,11 +5,21 @@
 <style lang="scss" scoped>
 /** @define divider */
 
+// Zero height with an absolutely drawn rule: a bordered element would add a
+// pixel to every section it separates.
 .divider {
-  width: 100%;
+  position: relative;
   height: 0;
   margin: 0;
   border: 0;
-  border-top: 1px solid var(--color-border-subtle);
+
+  &::before {
+    position: absolute;
+    inset-inline: 0;
+    top: 0;
+    height: 1px;
+    background: var(--color-border-subtle);
+    content: "";
+  }
 }
 </style>

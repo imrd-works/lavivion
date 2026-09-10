@@ -1,15 +1,17 @@
 <script setup lang="ts">
 import { useI18n } from "vue-i18n";
-import { Container } from "@/shared/ui";
+import { Container, Divider } from "@/shared/ui";
 import { ShowcaseHero } from "@/widgets/showcase-hero";
 import { CatalogFilters } from "@/widgets/catalog-filters";
-import { getQuickFilters } from "../api";
+import { ProductShelf } from "@/widgets/product-shelf";
+import { getProductShelves, getQuickFilters } from "../api";
 import { usePageSeo } from "../lib/usePageSeo";
 
 usePageSeo();
 
 const { t } = useI18n();
 const quickFilters = getQuickFilters();
+const shelves = getProductShelves();
 </script>
 
 <template>
@@ -25,6 +27,19 @@ const quickFilters = getQuickFilters();
     <Container>
       <CatalogFilters :quick-filters="quickFilters" />
     </Container>
+
+    <Container>
+      <div class="engagement-rings-page__shelves">
+        <template v-for="(shelf, index) in shelves" :key="shelf.category.id">
+          <Divider v-if="index > 0" />
+          <ProductShelf
+            :category="shelf.category"
+            :products="shelf.products"
+            :to="shelf.to"
+          />
+        </template>
+      </div>
+    </Container>
   </div>
 </template>
 
@@ -36,5 +51,11 @@ const quickFilters = getQuickFilters();
   flex-direction: column;
   gap: var(--spacing-4xl);
   padding-bottom: var(--spacing-5xl);
+
+  &__shelves {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-4xl);
+  }
 }
 </style>

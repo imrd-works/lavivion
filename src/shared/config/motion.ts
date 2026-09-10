@@ -1,3 +1,5 @@
+// Kept in step with the --duration-reveal token: a section that animates in
+// CSS instead of through the queue has to look the same.
 export const REVEAL_DURATION = 350;
 
 /** Each step starts halfway through the previous one, so a group builds up. */

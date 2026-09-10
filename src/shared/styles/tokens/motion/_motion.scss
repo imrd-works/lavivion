@@ -1,19 +1,8 @@
-// Use named tokens in transitions/animations instead of inline ms values.
-// Easings follow Material's "standard / decelerated / accelerated / emphasized"
-// taxonomy.
-
 :root {
-  // Duration
-  --duration-instant: 0ms;
   --duration-fast: 120ms;
   --duration-medium: 200ms;
   --duration-slow: 320ms;
-  --duration-slower: 480ms;
 
-  // Easing
-  --ease-linear: linear;
   --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
   --ease-decelerate: cubic-bezier(0, 0, 0.2, 1);
-  --ease-accelerate: cubic-bezier(0.4, 0, 1, 1);
-  --ease-emphasized: cubic-bezier(0.2, 0, 0, 1);
 }

@@ -1,59 +1,41 @@
-// Raw, role-less color values. Do not consume these directly in components.
-// Compose semantic tokens (see `_semantic.scss`) on top of this palette.
-
 :root {
-  // Neutral
   --color-neutral-0: #ffffff;
-  --color-neutral-50: #f8fafc;
-  --color-neutral-100: #f1f5f9;
-  --color-neutral-200: #e2e8f0;
-  --color-neutral-300: #cbd5e1;
-  --color-neutral-400: #94a3b8;
-  --color-neutral-500: #64748b;
-  --color-neutral-600: #475569;
-  --color-neutral-700: #334155;
-  --color-neutral-800: #1e293b;
-  --color-neutral-900: #0f172a;
-  --color-neutral-950: #020617;
+  --color-neutral-50: #fafafa;
+  --color-neutral-100: #f1f4f5;
+  --color-neutral-200: #e6ebed;
+  --color-neutral-300: #d7dee0;
+  --color-neutral-500: #9aa5a8;
+  --color-neutral-700: #515c60;
+  --color-neutral-900: #000000;
 
-  // Brand
-  --color-brand-50: #ecfdf5;
-  --color-brand-100: #d1fae5;
-  --color-brand-200: #a7f3d0;
-  --color-brand-300: #6ee7b7;
-  --color-brand-400: #34d399;
-  --color-brand-500: #10b981;
-  --color-brand-600: #059669;
-  --color-brand-700: #047857;
-  --color-brand-800: #065f46;
-  --color-brand-900: #064e3b;
-  --color-brand-950: #022c22;
+  --color-brand-800: #002d38;
 
-  // Success
-  --color-success-50: #f0fdf4;
-  --color-success-100: #dcfce7;
-  --color-success-500: #22c55e;
-  --color-success-600: #16a34a;
-  --color-success-700: #15803d;
-
-  // Warning
-  --color-warning-50: #fffbeb;
-  --color-warning-100: #fef3c7;
-  --color-warning-500: #f59e0b;
-  --color-warning-600: #d97706;
-  --color-warning-700: #b45309;
-
-  // Danger
-  --color-danger-50: #fef2f2;
-  --color-danger-100: #fee2e2;
-  --color-danger-500: #ef4444;
-  --color-danger-600: #dc2626;
-  --color-danger-700: #b91c1c;
-
-  // Info
-  --color-info-50: #eff6ff;
-  --color-info-100: #dbeafe;
-  --color-info-500: #3b82f6;
-  --color-info-600: #2563eb;
-  --color-info-700: #1d4ed8;
+  --color-metal-white-gold: radial-gradient(
+    circle farthest-side at 50% 0,
+    #cac8b9 50%,
+    #c6c1b3 70%,
+    #acaaa5 90%,
+    #bab9b5 100%
+  );
+  --color-metal-yellow-gold: radial-gradient(
+    circle farthest-side at 50% 0,
+    #edc95e 50%,
+    #e7c684 70%,
+    #cdae84 90%,
+    #d4ba96 100%
+  );
+  --color-metal-rose-gold: radial-gradient(
+    circle farthest-side at 50% 0,
+    #eba56f 50%,
+    #e3a482 70%,
+    #c59277 90%,
+    #cea48d 100%
+  );
+  --color-metal-platinum: radial-gradient(
+    circle farthest-side at 50% 0,
+    #b9bec1 50%,
+    #abb4ba 70%,
+    #9a9fa2 90%,
+    #aaaeb1 100%
+  );
 }

@@ -1,121 +1,71 @@
-// Composite tokens grouping family + size + weight + line-height + letter
-// spacing. Consumed via the `text()` mixin (see mixins/_typography.scss),
-// which expands each --text-{name}-* group into the matching CSS properties.
-//
-// Style naming:
-//   display-{xl,l,m,s}  — hero / marketing
-//   heading-{xl,l,m,s,xs} — page and section titles
-//   body-{l,m,s}        — paragraphs and UI text
-//   label-{l,m,s}       — form labels, table headers, eyebrow text
-//   caption             — meta, captions, hints
-//   code                — inline and block monospace
-
 :root {
-  // Display
-  --text-display-xl-family: var(--font-family-sans);
-  --text-display-xl-size: var(--font-size-7xl);
-  --text-display-xl-weight: var(--font-weight-bold);
-  --text-display-xl-line-height: var(--line-height-tight);
-  --text-display-xl-letter-spacing: var(--letter-spacing-tighter);
-
-  --text-display-l-family: var(--font-family-sans);
-  --text-display-l-size: var(--font-size-6xl);
-  --text-display-l-weight: var(--font-weight-bold);
-  --text-display-l-line-height: var(--line-height-tight);
-  --text-display-l-letter-spacing: var(--letter-spacing-tight);
-
-  --text-display-m-family: var(--font-family-sans);
-  --text-display-m-size: var(--font-size-5xl);
-  --text-display-m-weight: var(--font-weight-bold);
-  --text-display-m-line-height: var(--line-height-tight);
-  --text-display-m-letter-spacing: var(--letter-spacing-tight);
-
-  --text-display-s-family: var(--font-family-sans);
-  --text-display-s-size: var(--font-size-4xl);
-  --text-display-s-weight: var(--font-weight-bold);
-  --text-display-s-line-height: var(--line-height-tight);
-  --text-display-s-letter-spacing: var(--letter-spacing-tight);
-
-  // Heading
   --text-heading-xl-family: var(--font-family-sans);
   --text-heading-xl-size: var(--font-size-3xl);
-  --text-heading-xl-weight: var(--font-weight-semibold);
-  --text-heading-xl-line-height: var(--line-height-snug);
-  --text-heading-xl-letter-spacing: var(--letter-spacing-tight);
+  --text-heading-xl-weight: var(--font-weight-medium);
+  --text-heading-xl-line-height: var(--line-height-2xl);
+  --text-heading-xl-letter-spacing: var(--letter-spacing-tighter);
+  --text-heading-xl-transform: none;
 
   --text-heading-l-family: var(--font-family-sans);
   --text-heading-l-size: var(--font-size-2xl);
-  --text-heading-l-weight: var(--font-weight-semibold);
-  --text-heading-l-line-height: var(--line-height-snug);
+  --text-heading-l-weight: var(--font-weight-medium);
+  --text-heading-l-line-height: var(--line-height-xl);
   --text-heading-l-letter-spacing: var(--letter-spacing-tight);
+  --text-heading-l-transform: none;
 
   --text-heading-m-family: var(--font-family-sans);
   --text-heading-m-size: var(--font-size-xl);
-  --text-heading-m-weight: var(--font-weight-semibold);
-  --text-heading-m-line-height: var(--line-height-snug);
-  --text-heading-m-letter-spacing: var(--letter-spacing-normal);
+  --text-heading-m-weight: var(--font-weight-medium);
+  --text-heading-m-line-height: var(--line-height-l);
+  --text-heading-m-letter-spacing: var(--letter-spacing-snug);
+  --text-heading-m-transform: none;
 
   --text-heading-s-family: var(--font-family-sans);
-  --text-heading-s-size: var(--font-size-l);
-  --text-heading-s-weight: var(--font-weight-semibold);
-  --text-heading-s-line-height: var(--line-height-snug);
-  --text-heading-s-letter-spacing: var(--letter-spacing-normal);
+  --text-heading-s-size: var(--font-size-s);
+  --text-heading-s-weight: var(--font-weight-medium);
+  --text-heading-s-line-height: var(--line-height-s);
+  --text-heading-s-letter-spacing: var(--letter-spacing-wide);
+  --text-heading-s-transform: uppercase;
 
   --text-heading-xs-family: var(--font-family-sans);
-  --text-heading-xs-size: var(--font-size-m);
-  --text-heading-xs-weight: var(--font-weight-semibold);
-  --text-heading-xs-line-height: var(--line-height-snug);
-  --text-heading-xs-letter-spacing: var(--letter-spacing-normal);
-
-  // Body
-  --text-body-l-family: var(--font-family-sans);
-  --text-body-l-size: var(--font-size-l);
-  --text-body-l-weight: var(--font-weight-regular);
-  --text-body-l-line-height: var(--line-height-relaxed);
-  --text-body-l-letter-spacing: var(--letter-spacing-normal);
+  --text-heading-xs-size: var(--font-size-xs);
+  --text-heading-xs-weight: var(--font-weight-medium);
+  --text-heading-xs-line-height: var(--line-height-xs);
+  --text-heading-xs-letter-spacing: var(--letter-spacing-wide);
+  --text-heading-xs-transform: uppercase;
 
   --text-body-m-family: var(--font-family-sans);
-  --text-body-m-size: var(--font-size-m);
+  --text-body-m-size: var(--font-size-s);
   --text-body-m-weight: var(--font-weight-regular);
-  --text-body-m-line-height: var(--line-height-normal);
+  --text-body-m-line-height: var(--line-height-m);
   --text-body-m-letter-spacing: var(--letter-spacing-normal);
+  --text-body-m-transform: none;
 
-  --text-body-s-family: var(--font-family-sans);
-  --text-body-s-size: var(--font-size-s);
-  --text-body-s-weight: var(--font-weight-regular);
-  --text-body-s-line-height: var(--line-height-normal);
-  --text-body-s-letter-spacing: var(--letter-spacing-normal);
+  --text-body-m-light-family: var(--font-family-sans);
+  --text-body-m-light-size: var(--font-size-s);
+  --text-body-m-light-weight: var(--font-weight-light);
+  --text-body-m-light-line-height: var(--line-height-m);
+  --text-body-m-light-letter-spacing: var(--letter-spacing-normal);
+  --text-body-m-light-transform: none;
 
-  // Label
-  --text-label-l-family: var(--font-family-sans);
-  --text-label-l-size: var(--font-size-m);
-  --text-label-l-weight: var(--font-weight-medium);
-  --text-label-l-line-height: var(--line-height-snug);
-  --text-label-l-letter-spacing: var(--letter-spacing-normal);
+  --text-body-m-medium-family: var(--font-family-sans);
+  --text-body-m-medium-size: var(--font-size-s);
+  --text-body-m-medium-weight: var(--font-weight-medium);
+  --text-body-m-medium-line-height: var(--line-height-m);
+  --text-body-m-medium-letter-spacing: var(--letter-spacing-normal);
+  --text-body-m-medium-transform: none;
 
-  --text-label-m-family: var(--font-family-sans);
-  --text-label-m-size: var(--font-size-s);
-  --text-label-m-weight: var(--font-weight-medium);
-  --text-label-m-line-height: var(--line-height-snug);
-  --text-label-m-letter-spacing: var(--letter-spacing-normal);
+  --text-body-s-light-family: var(--font-family-sans);
+  --text-body-s-light-size: var(--font-size-xs);
+  --text-body-s-light-weight: var(--font-weight-light);
+  --text-body-s-light-line-height: var(--line-height-xs);
+  --text-body-s-light-letter-spacing: var(--letter-spacing-normal);
+  --text-body-s-light-transform: none;
 
-  --text-label-s-family: var(--font-family-sans);
-  --text-label-s-size: var(--font-size-xs);
-  --text-label-s-weight: var(--font-weight-medium);
-  --text-label-s-line-height: var(--line-height-snug);
-  --text-label-s-letter-spacing: var(--letter-spacing-wide);
-
-  // Caption
-  --text-caption-family: var(--font-family-sans);
-  --text-caption-size: var(--font-size-xs);
-  --text-caption-weight: var(--font-weight-regular);
-  --text-caption-line-height: var(--line-height-snug);
-  --text-caption-letter-spacing: var(--letter-spacing-normal);
-
-  // Code
-  --text-code-family: var(--font-family-mono);
-  --text-code-size: var(--font-size-s);
-  --text-code-weight: var(--font-weight-regular);
-  --text-code-line-height: var(--line-height-normal);
-  --text-code-letter-spacing: var(--letter-spacing-normal);
+  --text-body-xs-light-family: var(--font-family-sans);
+  --text-body-xs-light-size: var(--font-size-2xs);
+  --text-body-xs-light-weight: var(--font-weight-light);
+  --text-body-xs-light-line-height: var(--line-height-2xs);
+  --text-body-xs-light-letter-spacing: var(--letter-spacing-normal);
+  --text-body-xs-light-transform: none;
 }

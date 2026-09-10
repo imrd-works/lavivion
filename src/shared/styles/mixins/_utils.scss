@@ -260,7 +260,10 @@
   }
 }
 
-@mixin scrollbar-thin($thumb: var(--color-neutral-300), $track: transparent) {
+@mixin scrollbar-thin(
+  $thumb: var(--color-border-default),
+  $track: transparent
+) {
   scrollbar-color: $thumb $track;
   scrollbar-width: thin;
 

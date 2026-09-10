@@ -11,7 +11,14 @@ const srcPath = fileURLToPath(new URL("./src", import.meta.url));
 export default defineNuxtConfig({
   compatibilityDate: "2026-05-18",
   devtools: { enabled: true },
-  modules: ["@nuxtjs/sitemap", "@nuxtjs/robots"],
+  modules: ["@nuxtjs/sitemap", "@nuxtjs/robots", "@nuxt/image"],
+  image: {
+    format: ["avif", "webp"],
+    quality: 80,
+    // Mirrors the SCSS breakpoints so a `sizes` prefix means the same width
+    // in a template as it does in a stylesheet.
+    screens: { sm: 480, md: 768, lg: 1024, xl: 1280, "2xl": 1536 },
+  },
   // Pre-compress static assets (gzip + brotli) at build time.
   nitro: { compressPublicAssets: true },
   alias: { "@": srcPath },

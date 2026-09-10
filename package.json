@@ -31,6 +31,7 @@
     "vue-sonner": "^2.0.9"
   },
   "devDependencies": {
+    "@nuxt/image": "^2.1.0",
     "@commitlint/cli": "^21.1.0",
     "@commitlint/config-conventional": "^21.1.0",
     "@eslint/js": "^9.39.1",

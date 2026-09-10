@@ -1,0 +1,15 @@
+<template>
+  <hr class="divider" />
+</template>
+
+<style lang="scss" scoped>
+/** @define divider */
+
+.divider {
+  width: 100%;
+  height: 0;
+  margin: 0;
+  border: 0;
+  border-top: 1px solid var(--color-border-subtle);
+}
+</style>

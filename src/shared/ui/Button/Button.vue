@@ -1,24 +1,21 @@
 <script setup lang="ts">
+import type { Component } from "vue";
 import Icon from "@/shared/ui/Icon/Icon.vue";
 
 withDefaults(
   defineProps<{
-    variant?: "primary" | "accent" | "ghost" | "outline" | "text";
-    size?: "s" | "m" | "l";
-    tag?: string;
+    variant?: "primary" | "outline" | "text" | "link";
+    size?: "s" | "l";
+    tag?: string | Component;
     disabled?: boolean;
-    loading?: boolean;
     icon?: string;
-    ariaLabel?: string;
   }>(),
   {
     variant: "primary",
-    size: "m",
+    size: "s",
     tag: "button",
     disabled: false,
-    loading: false,
     icon: undefined,
-    ariaLabel: undefined,
   },
 );
 </script>
@@ -27,37 +24,18 @@ withDefaults(
   <component
     :is="tag"
     class="btn"
-    :class="[
-      `btn--${variant}`,
-      `btn--${size}`,
-      {
-        'btn--loading': loading,
-        'btn--icon-only': !$slots.default,
-      },
-      !$slots.default && `btn--icon-only-${size}`,
-    ]"
+    :class="[`btn--${variant}`, `btn--${size}`]"
     :type="tag === 'button' ? 'button' : undefined"
-    :disabled="tag === 'button' ? disabled || loading : undefined"
-    :aria-disabled="
-      tag !== 'button' && (disabled || loading) ? 'true' : undefined
-    "
-    :aria-label="ariaLabel"
+    :disabled="tag === 'button' ? disabled : undefined"
+    :aria-disabled="tag !== 'button' && disabled ? 'true' : undefined"
   >
-    <span v-if="loading" class="btn__spinner" aria-hidden="true">
-      <Icon name="refresh" :size="size === 's' ? 14 : size === 'l' ? 18 : 16" />
-    </span>
-
-    <Icon
-      v-else-if="icon"
-      :name="icon"
-      class="btn__icon"
-      :size="size === 's' ? 14 : size === 'l' ? 18 : 16"
-      aria-hidden="true"
-    />
-
-    <span v-if="$slots.default" class="btn__label">
+    <span class="btn__label">
       <slot />
     </span>
+    <span v-if="$slots.suffix" class="btn__suffix">
+      <slot name="suffix" />
+    </span>
+    <Icon v-if="icon" :name="icon" :size="16" class="btn__icon" />
   </component>
 </template>
 
@@ -66,8 +44,10 @@ withDefaults(
 @use "shared/styles/mixins" as *;
 
 .btn {
+  @include text("heading-xs");
+
   display: inline-flex;
-  gap: var(--spacing-xs);
+  gap: var(--spacing-2xs);
   align-items: center;
   justify-content: center;
   text-decoration: none;
@@ -75,13 +55,12 @@ withDefaults(
   cursor: pointer;
   user-select: none;
   border: 1px solid transparent;
-  border-radius: var(--radius-full);
+  border-radius: var(--radius-none);
   transition:
-    color 150ms ease,
-    background-color 150ms ease,
-    border-color 150ms ease,
-    box-shadow 150ms ease,
-    opacity 150ms ease;
+    color var(--duration-fast) var(--ease-standard),
+    background-color var(--duration-fast) var(--ease-standard),
+    border-color var(--duration-fast) var(--ease-standard),
+    opacity var(--duration-fast) var(--ease-standard);
 
   &:focus-visible {
     outline: 2px solid var(--color-border-focus);
@@ -89,166 +68,64 @@ withDefaults(
   }
 
   &--s {
-    @include text("label-m");
-
-    min-height: 32px;
-    padding: var(--spacing-2xs) var(--spacing-s);
-  }
-
-  &--m {
-    @include text("label-l");
-
-    min-height: 40px;
-    padding: var(--spacing-xs) var(--spacing-m);
+    min-height: 36px;
+    padding: var(--spacing-s) var(--spacing-l);
   }
 
   &--l {
-    @include text("label-l");
-
-    min-height: 48px;
-    padding: var(--spacing-s) var(--spacing-xl);
-  }
-
-  &--icon-only {
-    aspect-ratio: 1;
-  }
-
-  &--icon-only-s {
-    width: 32px;
-    padding: var(--spacing-2xs);
-  }
-
-  &--icon-only-m {
-    width: 40px;
-    padding: var(--spacing-xs);
-  }
-
-  &--icon-only-l {
-    width: 48px;
-    padding: var(--spacing-s);
+    min-height: 52px;
+    padding: var(--spacing-m) var(--spacing-3xl);
   }
 
   &--primary {
-    color: var(--color-text-primary);
-    background: var(--color-bg-surface);
-    border-color: var(--color-border-default);
-
-    &:hover:not(:disabled):not([aria-disabled="true"]) {
-      background: var(--color-action-secondary-bg-hover);
-    }
-
-    &:active:not(:disabled):not([aria-disabled="true"]) {
-      background: var(--color-action-secondary-bg-active);
-    }
-
-    &:disabled,
-    &[aria-disabled="true"] {
-      color: var(--color-action-primary-fg-disabled);
-      background: var(--color-action-primary-bg-disabled);
-      border-color: transparent;
-    }
-  }
-
-  &--accent {
     color: var(--color-action-primary-fg);
     background: var(--color-action-primary-bg);
-    border-color: transparent;
+    border-color: var(--color-action-primary-bg);
 
-    &:hover:not(:disabled):not([aria-disabled="true"]) {
-      background: var(--color-action-primary-bg-hover);
-    }
-
-    &:active:not(:disabled):not([aria-disabled="true"]) {
-      background: var(--color-action-primary-bg-active);
-    }
-
-    &:disabled,
-    &[aria-disabled="true"] {
-      color: var(--color-action-primary-fg-disabled);
-      background: var(--color-action-primary-bg-disabled);
-    }
-  }
-
-  &--ghost {
-    color: var(--color-text-primary);
-    background: var(--color-bg-surface-sunken);
-    border-color: var(--color-border-subtle);
-
-    &:hover:not(:disabled):not([aria-disabled="true"]) {
-      background: var(--color-action-secondary-bg-hover);
-      border-color: var(--color-border-default);
-    }
-
-    &:active:not(:disabled):not([aria-disabled="true"]) {
-      background: var(--color-action-secondary-bg-active);
-    }
-
-    &:disabled,
-    &[aria-disabled="true"] {
-      color: var(--color-action-secondary-fg-disabled);
-      border-color: var(--color-border-subtle);
+    @include hover-supported {
+      opacity: 0.9;
     }
   }
 
   &--outline {
     color: var(--color-action-secondary-fg);
-    background: var(--color-action-secondary-bg);
+    background: transparent;
     border-color: var(--color-action-secondary-border);
 
-    &:hover:not(:disabled):not([aria-disabled="true"]) {
-      background: var(--color-action-secondary-bg-hover);
-    }
-
-    &:active:not(:disabled):not([aria-disabled="true"]) {
-      background: var(--color-action-secondary-bg-active);
-    }
-
-    &:disabled,
-    &[aria-disabled="true"] {
-      color: var(--color-action-secondary-fg-disabled);
-      border-color: var(--color-border-subtle);
+    @include hover-supported {
+      border-color: var(--color-border-brand);
     }
   }
 
-  &--text {
-    color: var(--color-text-primary);
+  &--text,
+  &--link {
+    min-height: 0;
+    color: var(--color-text-brand);
     background: transparent;
-    border-color: transparent;
+    border: 0;
+  }
 
-    &:hover:not(:disabled):not([aria-disabled="true"]) {
-      background: var(--color-action-secondary-bg-hover);
-    }
+  &--text {
+    padding: 0;
+  }
 
-    &:active:not(:disabled):not([aria-disabled="true"]) {
-      background: var(--color-action-secondary-bg-active);
-    }
+  &--link {
+    padding: var(--spacing-xs) var(--spacing-2xs);
+    border-bottom: 1px solid var(--color-border-brand);
+  }
 
-    &:disabled,
-    &[aria-disabled="true"] {
-      color: var(--color-action-secondary-fg-disabled);
-    }
+  &__suffix {
+    @include text("body-xs-light");
+
+    align-self: flex-start;
+    padding-block: 1px;
   }
 
   &:disabled,
   &[aria-disabled="true"] {
     pointer-events: none;
     cursor: not-allowed;
-  }
-
-  &--loading {
-    pointer-events: none;
-    cursor: wait;
-  }
-
-  &__spinner {
-    display: inline-flex;
-    animation: btn-spin 800ms linear infinite;
-  }
-}
-
-@keyframes btn-spin {
-  to {
-    transform: rotate(360deg);
+    opacity: 0.5;
   }
 }
 </style>

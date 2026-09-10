@@ -1,29 +1,16 @@
 <script setup lang="ts">
-defineOptions({
-  name: "LayoutContainer",
-});
-
 withDefaults(
   defineProps<{
     tag?: string;
-    maxWidth?: string;
-    padding?: "none" | "s" | "m" | "l";
   }>(),
   {
     tag: "div",
-    maxWidth: "80rem",
-    padding: "m",
   },
 );
 </script>
 
 <template>
-  <component
-    :is="tag"
-    class="container"
-    :class="[padding !== 'none' && `container--padding-${padding}`]"
-    :style="{ '--container-max-width': maxWidth }"
-  >
+  <component :is="tag" class="container">
     <slot />
   </component>
 </template>
@@ -33,38 +20,16 @@ withDefaults(
 @use "shared/styles/mixins" as *;
 
 .container {
+  @include fluid-between(
+    padding-inline,
+    var(--spacing-l),
+    var(--spacing-2xl),
+    "sm",
+    "lg"
+  );
+
   width: 100%;
-  max-width: var(--container-max-width);
+  max-width: 1920px;
   margin-inline: auto;
-
-  &--padding-s {
-    @include fluid-between(
-      padding-inline,
-      var(--spacing-xs),
-      var(--spacing-m),
-      "md",
-      "xl"
-    );
-  }
-
-  &--padding-m {
-    @include fluid-between(
-      padding-inline,
-      var(--spacing-s),
-      var(--spacing-l),
-      "md",
-      "xl"
-    );
-  }
-
-  &--padding-l {
-    @include fluid-between(
-      padding-inline,
-      var(--spacing-m),
-      var(--spacing-xl),
-      "md",
-      "xl"
-    );
-  }
 }
 </style>

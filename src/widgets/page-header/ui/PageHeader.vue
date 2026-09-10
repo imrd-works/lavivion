@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { useI18n } from "vue-i18n";
-import { Button, Container, IconButton, Logo } from "@/shared/ui";
-import { actionLinks, contactsLink, primaryLinks } from "../config/navigation";
+import { Container, IconButton, Logo } from "@/shared/ui";
+import { ContactRequestButton } from "@/features/request-contact";
+import { actionLinks, primaryLinks } from "../config/navigation";
 import PrimaryNav from "./PrimaryNav.vue";
 import MobileNav from "./MobileNav.vue";
 
@@ -31,9 +32,9 @@ const { t } = useI18n();
               :label="t(`pageHeader.actions.${action.key}`)"
             />
           </div>
-          <Button :to="contactsLink">
+          <ContactRequestButton>
             {{ t("pageHeader.cta") }}
-          </Button>
+          </ContactRequestButton>
         </div>
 
         <MobileNav />

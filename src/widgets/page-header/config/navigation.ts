@@ -21,5 +21,3 @@ export const actionLinks: NavigationAction[] = [
   { key: "favorites", to: "/favorites", icon: "heart" },
   { key: "cart", to: "/cart", icon: "cart" },
 ];
-
-export const contactsLink = "/contacts";

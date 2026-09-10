@@ -2,7 +2,8 @@
 import { useI18n } from "vue-i18n";
 import { Button, Motion } from "@/shared/ui";
 import { revealCascade } from "@/shared/config/motion";
-import { expertLink, sizeGuideLink } from "../config/navigation";
+import { ContactRequestButton } from "@/features/request-contact";
+import { sizeGuideLink } from "../config/navigation";
 
 defineProps<{
   image: string;
@@ -32,9 +33,9 @@ const { t } = useI18n();
         <Button variant="outline" size="l" :to="sizeGuideLink">
           {{ t("sizeGuideBanner.openSizer") }}
         </Button>
-        <Button size="l" :to="expertLink">
+        <ContactRequestButton size="l">
           {{ t("sizeGuideBanner.contactExpert") }}
-        </Button>
+        </ContactRequestButton>
       </div>
     </div>
   </Motion>

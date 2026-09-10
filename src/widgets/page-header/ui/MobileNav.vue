@@ -2,8 +2,10 @@
 import { onBeforeUnmount, ref, watch } from "vue";
 import { useRoute } from "vue-router";
 import { useI18n } from "vue-i18n";
-import { Button, IconButton, Logo } from "@/shared/ui";
-import { actionLinks, contactsLink, primaryLinks } from "../config/navigation";
+import { IconButton, Logo } from "@/shared/ui";
+import { ContactRequestButton } from "@/features/request-contact";
+import { useScrollLock } from "@/shared/lib/useScrollLock";
+import { actionLinks, primaryLinks } from "../config/navigation";
 
 const { t } = useI18n();
 const route = useRoute();
@@ -18,8 +20,9 @@ function onKeydown(event: KeyboardEvent) {
   if (event.key === "Escape") close();
 }
 
+useScrollLock(isOpen);
+
 watch(isOpen, (open) => {
-  document.body.style.overflow = open ? "hidden" : "";
   if (open) {
     document.addEventListener("keydown", onKeydown);
   } else {
@@ -30,7 +33,6 @@ watch(isOpen, (open) => {
 watch(() => route.fullPath, close);
 
 onBeforeUnmount(() => {
-  document.body.style.overflow = "";
   document.removeEventListener("keydown", onKeydown);
 });
 </script>
@@ -83,9 +85,9 @@ onBeforeUnmount(() => {
             </li>
           </ul>
 
-          <Button :to="contactsLink" size="l">
+          <ContactRequestButton size="l">
             {{ t("pageHeader.cta") }}
-          </Button>
+          </ContactRequestButton>
         </aside>
       </div>
     </Teleport>

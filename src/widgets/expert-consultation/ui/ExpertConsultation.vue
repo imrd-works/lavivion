@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { useI18n } from "vue-i18n";
-import { Button, Motion } from "@/shared/ui";
+import { Motion } from "@/shared/ui";
 import { revealCascade } from "@/shared/config/motion";
-import { bookingLink } from "../config/navigation";
+import { ContactRequestButton } from "@/features/request-contact";
 
 defineProps<{
   image: string;
@@ -20,9 +20,9 @@ const { t } = useI18n();
       <p class="expert-consultation__description">
         {{ t("expertConsultation.description") }}
       </p>
-      <Button variant="link" :to="bookingLink">
+      <ContactRequestButton variant="link">
         {{ t("expertConsultation.action") }}
-      </Button>
+      </ContactRequestButton>
     </div>
 
     <div class="expert-consultation__media">

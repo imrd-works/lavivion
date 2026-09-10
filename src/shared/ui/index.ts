@@ -5,5 +5,6 @@ export { default as Divider } from "./Divider/Divider.vue";
 export { default as Icon } from "./Icon/Icon.vue";
 export { default as IconButton } from "./IconButton/IconButton.vue";
 export { default as Logo } from "./Logo/Logo.vue";
+export { default as Modal } from "./Modal/Modal.vue";
 export { default as Motion } from "./Motion/Motion.vue";
 export { default as ToasterLazy } from "./Toaster/ToasterLazy.vue";

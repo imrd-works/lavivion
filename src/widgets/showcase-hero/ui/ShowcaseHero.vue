@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { Motion } from "@/shared/ui";
+import { REVEAL_DURATION, REVEAL_STEP } from "@/shared/config/motion";
+
 defineProps<{
   title: string;
   description: string;
@@ -7,13 +10,21 @@ defineProps<{
 </script>
 
 <template>
-  <section class="showcase-hero">
+  <Motion
+    tag="section"
+    class="showcase-hero"
+    preset="fade-up"
+    trigger="visible"
+    target="children"
+    :duration="REVEAL_DURATION"
+    :stagger="REVEAL_STEP"
+  >
     <img class="showcase-hero__image" :src="image" alt="" />
     <div class="showcase-hero__content">
       <h1 class="showcase-hero__title">{{ title }}</h1>
       <p class="showcase-hero__description">{{ description }}</p>
     </div>
-  </section>
+  </Motion>
 </template>
 
 <style lang="scss" scoped>

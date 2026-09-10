@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useI18n } from "vue-i18n";
-import { Button } from "@/shared/ui";
+import { Button, Motion } from "@/shared/ui";
+import { REVEAL_DURATION, REVEAL_STEP } from "@/shared/config/motion";
 import { expertLink, sizeGuideLink } from "../config/navigation";
 
 defineProps<{
@@ -11,7 +12,15 @@ const { t } = useI18n();
 </script>
 
 <template>
-  <section class="size-guide-banner">
+  <Motion
+    tag="section"
+    class="size-guide-banner"
+    preset="fade-up"
+    trigger="visible"
+    target="children"
+    :duration="REVEAL_DURATION"
+    :stagger="REVEAL_STEP"
+  >
     <div class="size-guide-banner__media">
       <img class="size-guide-banner__image" :src="image" alt="" />
       <span class="size-guide-banner__fade" />
@@ -36,7 +45,7 @@ const { t } = useI18n();
         </Button>
       </div>
     </div>
-  </section>
+  </Motion>
 </template>
 
 <style lang="scss" scoped>

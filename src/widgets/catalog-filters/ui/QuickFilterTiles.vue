@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { Motion } from "@/shared/ui";
+import { REVEAL_DURATION, REVEAL_STEP } from "@/shared/config/motion";
 import type { QuickFilter } from "../model/types";
 
 defineProps<{
@@ -7,7 +9,15 @@ defineProps<{
 </script>
 
 <template>
-  <ul class="quick-filter-tiles">
+  <Motion
+    tag="ul"
+    class="quick-filter-tiles"
+    preset="fade-up"
+    trigger="visible"
+    target="children"
+    :duration="REVEAL_DURATION"
+    :stagger="REVEAL_STEP"
+  >
     <li v-for="item in items" :key="item.id" class="quick-filter-tiles__item">
       <NuxtLink :to="item.to" class="quick-filter-tiles__link">
         <span class="quick-filter-tiles__media">
@@ -17,7 +27,7 @@ defineProps<{
         <span class="quick-filter-tiles__label">{{ item.title }}</span>
       </NuxtLink>
     </li>
-  </ul>
+  </Motion>
 </template>
 
 <style lang="scss" scoped>

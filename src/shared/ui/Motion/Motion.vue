@@ -77,7 +77,16 @@ const presetVars: Record<MotionPreset, { from: MotionVars; to: MotionVars }> = {
 };
 
 const el = ref<HTMLElement | null>(null);
-const classes = computed(() => ["motion", `motion--${props.preset}`]);
+
+// Rendered on the server so the element is already hidden at first paint:
+// applying the "from" state only after gsap loads would flash the content.
+const pending = ref(props.preset !== "none" && !props.disabled);
+
+const classes = computed(() => [
+  "motion",
+  `motion--${props.preset}`,
+  { "motion--pending": pending.value },
+]);
 
 let observer: IntersectionObserver | null = null;
 let tween: GsapTween | null = null;
@@ -169,15 +178,19 @@ async function setupVisibleTrigger() {
 onMounted(async () => {
   await nextTick();
 
-  if (props.disabled || props.preset === "none" || prefersReducedMotion())
+  if (props.disabled || props.preset === "none" || prefersReducedMotion()) {
+    pending.value = false;
     return;
+  }
 
   if (props.trigger === "visible") {
     await setupVisibleTrigger();
+    pending.value = false;
     return;
   }
 
   await animate();
+  pending.value = false;
 });
 
 onUnmounted(() => {

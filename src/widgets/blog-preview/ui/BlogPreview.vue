@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { computed } from "vue";
 import { useI18n } from "vue-i18n";
-import { Button } from "@/shared/ui";
+import { Button, Motion } from "@/shared/ui";
+import { REVEAL_DURATION, REVEAL_STEP } from "@/shared/config/motion";
 import { ArticleCard, type Article } from "@/entities/article";
 import { allArticlesLink } from "../config/navigation";
 
@@ -19,13 +20,18 @@ const restCount = computed(() =>
 
 <template>
   <section class="blog-preview">
-    <div class="blog-preview__heading">
+    <Motion
+      class="blog-preview__heading"
+      preset="fade-up"
+      trigger="visible"
+      :duration="REVEAL_DURATION"
+    >
       <h2 class="blog-preview__title">{{ t("blogPreview.title") }}</h2>
       <Button variant="link" :to="allArticlesLink">
         {{ t("blogPreview.viewAll") }}
         <template #suffix>+{{ restCount }}</template>
       </Button>
-    </div>
+    </Motion>
 
     <div
       class="blog-preview__viewport"
@@ -33,7 +39,16 @@ const restCount = computed(() =>
       tabindex="0"
       :aria-label="t('blogPreview.carouselLabel')"
     >
-      <ul class="blog-preview__track">
+      <Motion
+        tag="ul"
+        class="blog-preview__track"
+        preset="fade-in"
+        trigger="visible"
+        target="children"
+        :duration="REVEAL_DURATION"
+        :delay="REVEAL_STEP"
+        :stagger="REVEAL_STEP"
+      >
         <li
           v-for="article in articles"
           :key="article.id"
@@ -41,7 +56,7 @@ const restCount = computed(() =>
         >
           <ArticleCard :article="article" />
         </li>
-      </ul>
+      </Motion>
     </div>
   </section>
 </template>
@@ -80,6 +95,9 @@ const restCount = computed(() =>
 
     grid-column: span 3;
     overflow-x: auto;
+    // The horizontal scrollbar area leaks a few pixels of vertical scroll,
+    // which would swallow wheel gestures meant for the page.
+    overflow-y: hidden;
     scroll-snap-type: x mandatory;
   }
 

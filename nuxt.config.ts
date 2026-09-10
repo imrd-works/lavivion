@@ -28,6 +28,14 @@ export default defineNuxtConfig({
   app: {
     head: {
       htmlAttrs: { lang: "ru" },
+      script: [
+        {
+          // Runs before the first paint so reveal targets can be hidden by CSS
+          // without hiding anything from visitors without JavaScript.
+          innerHTML: 'document.documentElement.classList.add("js")',
+          tagPosition: "head",
+        },
+      ],
       link: [
         { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
         {

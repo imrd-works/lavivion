@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useI18n } from "vue-i18n";
-import { Button } from "@/shared/ui";
+import { Button, Motion } from "@/shared/ui";
+import { REVEAL_DURATION, REVEAL_STEP } from "@/shared/config/motion";
 import { bookingLink } from "../config/navigation";
 
 defineProps<{
@@ -11,7 +12,15 @@ const { t } = useI18n();
 </script>
 
 <template>
-  <section class="expert-consultation">
+  <Motion
+    tag="section"
+    class="expert-consultation"
+    preset="fade-up"
+    trigger="visible"
+    target="children"
+    :duration="REVEAL_DURATION"
+    :stagger="REVEAL_STEP"
+  >
     <div class="expert-consultation__text">
       <h2 class="expert-consultation__title">
         {{ t("expertConsultation.title") }}
@@ -27,7 +36,7 @@ const { t } = useI18n();
     <div class="expert-consultation__media">
       <img class="expert-consultation__image" :src="image" alt="" />
     </div>
-  </section>
+  </Motion>
 </template>
 
 <style lang="scss" scoped>

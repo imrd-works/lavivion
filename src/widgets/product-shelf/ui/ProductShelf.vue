@@ -4,6 +4,8 @@ import {
   CategoryHeader,
   type ProductCategory,
 } from "@/entities/product-category";
+import { Motion } from "@/shared/ui";
+import { REVEAL_DURATION, REVEAL_STEP } from "@/shared/config/motion";
 import type { Product } from "@/entities/product";
 import ProductShelfGrid from "./ProductShelfGrid.vue";
 
@@ -20,8 +22,17 @@ const restCount = computed(() =>
 
 <template>
   <section class="product-shelf">
-    <CategoryHeader :category="category" />
-    <ProductShelfGrid :products="products" :to="to" :rest-count="restCount" />
+    <Motion preset="fade-up" trigger="visible" :duration="REVEAL_DURATION">
+      <CategoryHeader :category="category" />
+    </Motion>
+    <ProductShelfGrid
+      :products="products"
+      :to="to"
+      :rest-count="restCount"
+      :reveal-duration="REVEAL_DURATION"
+      :reveal-delay="REVEAL_STEP"
+      :reveal-stagger="REVEAL_STEP"
+    />
   </section>
 </template>
 

@@ -1,0 +1,12 @@
+// Elements queued for a reveal are hidden from the very first paint, but only
+// when scripting is available: without JS the reveal would never run and the
+// content would stay invisible.
+html.js .motion--pending {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.js .motion--pending {
+    opacity: 1;
+  }
+}

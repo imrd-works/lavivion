@@ -3,8 +3,10 @@ import { useSeoMeta } from "@/shared/lib/useSeo";
 
 export function usePageSeo() {
   const { t } = useI18n();
+
   useSeoMeta({
     title: () => t("notFound.seo.title"),
     description: () => t("notFound.seo.description"),
+    robots: "noindex, follow",
   });
 }

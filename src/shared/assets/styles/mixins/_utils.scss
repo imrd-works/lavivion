@@ -298,3 +298,15 @@
     @content;
   }
 }
+
+// Figma strokes do not add to a frame's size, so hairlines are drawn as inset
+// shadows: a real border would make every bordered section 1px taller.
+@mixin hairline($side: top, $color: var(--color-border-subtle)) {
+  @if $side == top {
+    box-shadow: inset 0 1px 0 $color;
+  } @else if $side == bottom {
+    box-shadow: inset 0 -1px 0 $color;
+  } @else {
+    @error "hairline() supports only 'top' and 'bottom', got '#{$side}'.";
+  }
+}

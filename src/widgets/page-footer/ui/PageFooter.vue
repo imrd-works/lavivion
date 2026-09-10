@@ -76,11 +76,10 @@ const { t } = useI18n();
 .page-footer {
   background: var(--color-bg-surface);
 
-  // Hairlines are drawn inset so they match the mockup without adding height.
   &__nav,
   &__logo,
   &__disclaimer {
-    box-shadow: inset 0 1px 0 var(--color-border-subtle);
+    @include hairline(top);
   }
 
   &__nav {

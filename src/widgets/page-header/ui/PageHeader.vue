@@ -60,7 +60,7 @@ const { t } = useI18n();
     gap: var(--spacing-2xl);
     align-items: center;
     justify-content: space-between;
-    border-bottom: 1px solid var(--color-border-subtle);
+    @include hairline(bottom);
   }
 
   &__logo {

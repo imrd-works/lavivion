@@ -7,4 +7,6 @@ export { default as IconButton } from "./IconButton/IconButton.vue";
 export { default as Logo } from "./Logo/Logo.vue";
 export { default as Modal } from "./Modal/Modal.vue";
 export { default as Motion } from "./Motion/Motion.vue";
+export { default as SectionError } from "./SectionError/SectionError.vue";
+export { default as Skeleton } from "./Skeleton/Skeleton.vue";
 export { default as ToasterLazy } from "./Toaster/ToasterLazy.vue";

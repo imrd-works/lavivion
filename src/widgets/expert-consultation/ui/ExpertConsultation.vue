@@ -3,10 +3,13 @@ import { useI18n } from "vue-i18n";
 import { Motion } from "@/shared/ui";
 import { revealCascade } from "@/shared/config/motion";
 import { ContactRequestButton } from "@/features/request-contact";
+import { imageSizes } from "@/shared/config/image";
 
 defineProps<{
   image: string;
 }>();
+
+const sizes = imageSizes({ xs: 100, lg: 75 });
 
 const { t } = useI18n();
 </script>
@@ -26,7 +29,16 @@ const { t } = useI18n();
     </div>
 
     <div class="expert-consultation__media">
-      <img class="expert-consultation__image" :src="image" alt="" />
+      <NuxtImg
+        class="expert-consultation__image"
+        :src="image"
+        width="2076"
+        height="1040"
+        :sizes="sizes"
+        loading="lazy"
+        preset="photo"
+        alt=""
+      />
     </div>
   </Motion>
 </template>

@@ -13,11 +13,12 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: ["@nuxtjs/sitemap", "@nuxtjs/robots", "@nuxt/image"],
   image: {
-    format: ["avif", "webp"],
-    quality: 80,
     // Mirrors the SCSS breakpoints so a `sizes` prefix means the same width
     // in a template as it does in a stylesheet.
-    screens: { sm: 480, md: 768, lg: 1024, xl: 1280, "2xl": 1536 },
+    screens: { xs: 320, sm: 480, md: 768, lg: 1024, xl: 1280, "2xl": 1536 },
+    // Every picture on the page goes through this preset, so format and
+    // quality are decided once instead of on each tag.
+    presets: { photo: { modifiers: { format: "webp", quality: 80 } } },
   },
   // Pre-compress static assets (gzip + brotli) at build time.
   nitro: { compressPublicAssets: true },

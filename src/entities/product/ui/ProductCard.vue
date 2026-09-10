@@ -1,11 +1,13 @@
 <script setup lang="ts">
+import { computed } from "vue";
 import { useI18n } from "vue-i18n";
 import { Badge } from "@/shared/ui";
+import { imageSizes } from "@/shared/config/image";
 import type { Product } from "../model/types";
 import { formatPrice } from "../lib/formatPrice";
 import ProductSwatches from "./ProductSwatches.vue";
 
-withDefaults(
+const props = withDefaults(
   defineProps<{
     product: Product;
     size?: "large" | "small";
@@ -15,13 +17,26 @@ withDefaults(
   },
 );
 
+const sizes = computed(() =>
+  props.size === "large"
+    ? imageSizes({ xs: 100, lg: 50 })
+    : imageSizes({ xs: 100, sm: 50, lg: 25 }),
+);
+
 const { t } = useI18n();
 </script>
 
 <template>
   <article class="product-card" :class="`product-card--${size}`">
     <div class="product-card__media">
-      <img class="product-card__image" :src="product.image" alt="" />
+      <NuxtImg
+        class="product-card__image"
+        :src="product.image"
+        :sizes="sizes"
+        loading="lazy"
+        preset="photo"
+        alt=""
+      />
       <Badge v-if="product.badge" class="product-card__badge" trademark>
         {{ product.badge }}
       </Badge>

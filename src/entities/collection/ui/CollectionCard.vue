@@ -1,9 +1,17 @@
 <script setup lang="ts">
+import { computed } from "vue";
+import { imageSizes } from "@/shared/config/image";
 import type { Collection } from "../model/types";
 
-defineProps<{
+const props = defineProps<{
   collection: Collection;
 }>();
+
+const sizes = computed(() =>
+  props.collection.featured
+    ? imageSizes({ xs: 100, lg: 50 })
+    : imageSizes({ xs: 50, lg: 25 }),
+);
 </script>
 
 <template>
@@ -12,7 +20,14 @@ defineProps<{
     class="collection-card"
     :class="{ 'collection-card--featured': collection.featured }"
   >
-    <img class="collection-card__image" :src="collection.image" alt="" />
+    <NuxtImg
+      class="collection-card__image"
+      :src="collection.image"
+      :sizes="sizes"
+      loading="lazy"
+      preset="photo"
+      alt=""
+    />
     <span v-if="collection.title" class="collection-card__title">
       {{ collection.title }}
     </span>

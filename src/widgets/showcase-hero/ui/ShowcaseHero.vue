@@ -1,17 +1,30 @@
 <script setup lang="ts">
 import { Motion } from "@/shared/ui";
 import { revealCascade } from "@/shared/config/motion";
+import { imageSizes } from "@/shared/config/image";
 
 defineProps<{
   title: string;
   description: string;
   image: string;
 }>();
+
+const sizes = imageSizes({ xs: 100 });
 </script>
 
 <template>
   <Motion v-bind="revealCascade" tag="section" class="showcase-hero">
-    <img class="showcase-hero__image" :src="image" alt="" />
+    <NuxtImg
+      class="showcase-hero__image"
+      :src="image"
+      width="2784"
+      height="720"
+      :sizes="sizes"
+      preload
+      fetchpriority="high"
+      preset="photo"
+      alt=""
+    />
     <div class="showcase-hero__content">
       <h1 class="showcase-hero__title">{{ title }}</h1>
       <p class="showcase-hero__description">{{ description }}</p>

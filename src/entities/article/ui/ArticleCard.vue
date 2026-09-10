@@ -1,19 +1,25 @@
 <script setup lang="ts">
 import { Badge } from "@/shared/ui";
+import { imageSizes } from "@/shared/config/image";
 import type { Article } from "../model/types";
 
 defineProps<{
   article: Article;
 }>();
+
+const sizes = imageSizes({ xs: 80, md: 50, lg: 25 });
 </script>
 
 <template>
   <article class="article-card">
     <div class="article-card__media">
-      <img
+      <NuxtImg
         v-if="article.image"
         class="article-card__image"
         :src="article.image"
+        :sizes="sizes"
+        loading="lazy"
+        preset="photo"
         alt=""
       />
     </div>

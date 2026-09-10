@@ -1,11 +1,14 @@
 <script setup lang="ts">
 import { Motion } from "@/shared/ui";
 import { revealCascade } from "@/shared/config/motion";
+import { imageSizes } from "@/shared/config/image";
 import type { QuickFilter } from "../model/types";
 
 defineProps<{
   items: QuickFilter[];
 }>();
+
+const sizes = imageSizes({ xs: 45, md: 34, lg: 24, xl: 16 });
 </script>
 
 <template>
@@ -15,7 +18,16 @@ defineProps<{
         <NuxtLink :to="item.to" class="quick-filter-tiles__link">
           <span class="quick-filter-tiles__media">
             <span class="quick-filter-tiles__overlay" />
-            <img class="quick-filter-tiles__image" :src="item.image" alt="" />
+            <NuxtImg
+              class="quick-filter-tiles__image"
+              :src="item.image"
+              width="400"
+              height="400"
+              :sizes="sizes"
+              loading="lazy"
+              preset="photo"
+              alt=""
+            />
           </span>
           <span class="quick-filter-tiles__label">{{ item.title }}</span>
         </NuxtLink>

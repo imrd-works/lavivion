@@ -3,11 +3,14 @@ import { useI18n } from "vue-i18n";
 import { Button, Motion } from "@/shared/ui";
 import { revealCascade } from "@/shared/config/motion";
 import { ContactRequestButton } from "@/features/request-contact";
+import { imageSizes } from "@/shared/config/image";
 import { sizeGuideLink } from "../config/navigation";
 
 defineProps<{
   image: string;
 }>();
+
+const sizes = imageSizes({ xs: 100 });
 
 const { t } = useI18n();
 </script>
@@ -15,7 +18,16 @@ const { t } = useI18n();
 <template>
   <Motion v-bind="revealCascade" tag="section" class="size-guide-banner">
     <div class="size-guide-banner__media">
-      <img class="size-guide-banner__image" :src="image" alt="" />
+      <NuxtImg
+        class="size-guide-banner__image"
+        :src="image"
+        width="1368"
+        height="336"
+        :sizes="sizes"
+        loading="lazy"
+        preset="photo"
+        alt=""
+      />
       <span class="size-guide-banner__fade" />
     </div>
 

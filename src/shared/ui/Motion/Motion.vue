@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { CSSProperties } from "vue";
 import { computed, nextTick, onMounted, onUnmounted, ref } from "vue";
+import { enqueueReveal } from "@/shared/lib/revealQueue";
 
 // gsap is loaded lazily (see loadGsap) so it lands in its own async chunk
 // instead of the initial JS of every route that renders <Motion>.
@@ -132,7 +133,20 @@ function cleanupTween() {
   tween = null;
 }
 
-async function animate() {
+function targetCount(targets: Element | Element[]): number {
+  return Array.isArray(targets) ? targets.length : 1;
+}
+
+/**
+ * When the next queued reveal may start: halfway through the last element of
+ * this one, the same overlap the children of a cascade have between them.
+ */
+function handoverMs(count: number): number {
+  const stagger = props.target === "children" ? props.stagger : 0;
+  return props.delay + stagger * Math.max(count - 1, 0) + props.duration / 2;
+}
+
+async function animate(): Promise<void> {
   if (props.disabled || props.preset === "none" || prefersReducedMotion())
     return;
 
@@ -143,6 +157,7 @@ async function animate() {
   const { from, to } = getMotionVars();
 
   cleanupTween();
+
   tween = gsap.fromTo(targets, from, {
     ...to,
     delay: toSeconds(props.delay),
@@ -151,6 +166,24 @@ async function animate() {
     stagger: props.target === "children" ? toSeconds(props.stagger) : 0,
     clearProps: "opacity,transform",
   });
+
+  await new Promise<void>((resolve) => {
+    setTimeout(resolve, handoverMs(targetCount(targets)));
+  });
+}
+
+/** Skips the animation for a section the reader has already scrolled past. */
+async function reveal(): Promise<void> {
+  const element = el.value;
+  const targets = getTargets();
+
+  if (element && targets && element.getBoundingClientRect().bottom < 0) {
+    const gsap = await loadGsap();
+    gsap.set(targets, getMotionVars().to);
+    return;
+  }
+
+  await animate();
 }
 
 async function setupVisibleTrigger() {
@@ -162,9 +195,10 @@ async function setupVisibleTrigger() {
   gsap.set(targets, from as CSSProperties);
 
   observer = new IntersectionObserver((entries) => {
-    if (!entries[0]?.isIntersecting) return;
+    if (!entries[0]?.isIntersecting || !el.value) return;
 
-    void animate();
+    const position = el.value.getBoundingClientRect().top + window.scrollY;
+    enqueueReveal(position, reveal);
 
     if (props.once) {
       observer?.disconnect();

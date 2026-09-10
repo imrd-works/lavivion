@@ -1,0 +1,32 @@
+{
+  "total": 129,
+  "items": [
+    {
+      "id": "choosing-ring",
+      "title": "Как выбрать помолвочное кольцо",
+      "tags": ["Помолвка и свадьба", "Гид"],
+      "image": "/images/blog/choosing-ring.jpg",
+      "to": "/expertise/articles/choosing-ring"
+    },
+    {
+      "id": "diamond-origin",
+      "title": "Происхождение бриллиантов LA VIVION",
+      "tags": ["Помолвка и свадьба"],
+      "image": "/images/blog/diamond-origin.jpg",
+      "to": "/expertise/articles/diamond-origin"
+    },
+    {
+      "id": "four-c",
+      "title": "4C — карат, цвет и чистота",
+      "tags": ["Помолвка и свадьба"],
+      "image": "/images/blog/four-c.jpg",
+      "to": "/expertise/articles/four-c"
+    },
+    {
+      "id": "placeholder",
+      "title": "Placeholder",
+      "tags": ["Placeholder"],
+      "to": "/expertise/articles"
+    }
+  ]
+}

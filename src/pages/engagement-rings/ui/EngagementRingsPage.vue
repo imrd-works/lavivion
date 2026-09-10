@@ -7,7 +7,9 @@ import { ProductShelf } from "@/widgets/product-shelf";
 import { SizeGuideBanner } from "@/widgets/size-guide-banner";
 import { BudgetCollections } from "@/widgets/budget-collections";
 import { ExpertConsultation } from "@/widgets/expert-consultation";
+import { BlogPreview } from "@/widgets/blog-preview";
 import {
+  getBlogPreview,
   getBudgetCollections,
   getProductShelves,
   getQuickFilters,
@@ -20,6 +22,7 @@ const { t } = useI18n();
 const quickFilters = getQuickFilters();
 const shelves = getProductShelves();
 const collections = getBudgetCollections();
+const blog = getBlogPreview();
 </script>
 
 <template>
@@ -67,6 +70,12 @@ const collections = getBudgetCollections();
 
     <Container>
       <ExpertConsultation image="/images/consultation/expert.jpg" />
+    </Container>
+
+    <Divider />
+
+    <Container>
+      <BlogPreview :articles="blog.items" :total-count="blog.total" />
     </Container>
   </div>
 </template>

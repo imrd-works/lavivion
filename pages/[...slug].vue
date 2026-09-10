@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { setResponseStatus, useRequestEvent } from "#app";
-import NotFoundPage from "@/pages/not-found/views/NotFoundPage.vue";
+import { NotFoundPage } from "@/pages/not-found";
 
 const event = useRequestEvent();
 if (event) {

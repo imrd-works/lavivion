@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import ToasterLazy from "@/shared/components/ToasterLazy.vue";
+import { ToasterLazy } from "@/shared/ui";
 </script>
 
 <template>

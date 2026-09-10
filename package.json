@@ -16,7 +16,7 @@
     "typecheck": "nuxt typecheck",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "generate:api": "openapi-typescript ${OPENAPI_SPEC_URL:-./openapi.json} -o src/app/api/contracts.d.ts",
+    "generate:api": "openapi-typescript ${OPENAPI_SPEC_URL:-./openapi.json} -o src/shared/api/contracts.d.ts",
     "prepare": "husky",
     "postinstall": "nuxt prepare"
   },

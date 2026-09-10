@@ -7,7 +7,7 @@ coverage/
 
 # Lockfiles & generated
 package-lock.json
-src/app/api/contracts.d.ts
+src/shared/api/contracts.d.ts
 
 # Misc
 *.log

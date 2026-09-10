@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useRouter } from "vue-router";
 import { useI18n } from "vue-i18n";
-import { usePageSeo } from "../seo/usePageSeo";
+import { usePageSeo } from "../lib/usePageSeo";
 
 usePageSeo();
 const router = useRouter();
@@ -24,7 +24,7 @@ function goHome() {
 
 <style lang="scss" scoped>
 /** @define not-found-page */
-@use "assets/styles/mixins" as *;
+@use "shared/styles/mixins" as *;
 
 .not-found-page {
   display: flex;

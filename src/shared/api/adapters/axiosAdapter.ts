@@ -5,7 +5,7 @@ import axios, {
   type InternalAxiosRequestConfig,
 } from "axios";
 import type { ApiClient, ApiRequestConfig, ApiResponse } from "../client";
-import { useToast } from "@/composables/useToast";
+import { useToast } from "@/shared/lib/useToast";
 import { useUserStore } from "@/shared/stores";
 
 interface AxiosConfigWithApi extends AxiosRequestConfig {

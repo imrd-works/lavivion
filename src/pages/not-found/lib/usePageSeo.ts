@@ -1,5 +1,5 @@
 import { useI18n } from "vue-i18n";
-import { useSeoMeta } from "@/composables/useSeo";
+import { useSeoMeta } from "@/shared/lib/useSeo";
 
 export function usePageSeo() {
   const { t } = useI18n();

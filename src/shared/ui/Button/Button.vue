@@ -63,7 +63,7 @@ withDefaults(
 
 <style lang="scss" scoped>
 /** @define btn */
-@use "assets/styles/mixins" as *;
+@use "shared/styles/mixins" as *;
 
 .btn {
   display: inline-flex;

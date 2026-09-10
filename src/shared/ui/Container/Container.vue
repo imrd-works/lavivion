@@ -30,7 +30,7 @@ withDefaults(
 
 <style lang="scss" scoped>
 /** @define container */
-@use "assets/styles/mixins" as *;
+@use "shared/styles/mixins" as *;
 
 .container {
   width: 100%;

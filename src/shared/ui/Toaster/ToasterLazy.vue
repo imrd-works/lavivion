@@ -3,7 +3,7 @@ import { ref, watch, onMounted, nextTick } from "vue";
 import {
   toasterMountRequested,
   markToasterMounted,
-} from "@/composables/useToast";
+} from "@/shared/lib/useToast";
 
 const ToasterComponent = ref<(typeof import("vue-sonner"))["Toaster"] | null>(
   null,

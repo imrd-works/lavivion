@@ -172,8 +172,13 @@ async function animate(): Promise<void> {
   });
 }
 
+let hasRevealed = false;
+
 /** Skips the animation for a section the reader has already scrolled past. */
 async function reveal(): Promise<void> {
+  if (hasRevealed) return;
+  hasRevealed = true;
+
   const element = el.value;
   const targets = getTargets();
 
@@ -210,21 +215,23 @@ async function setupVisibleTrigger() {
 }
 
 onMounted(async () => {
-  await nextTick();
+  try {
+    await nextTick();
 
-  if (props.disabled || props.preset === "none" || prefersReducedMotion()) {
+    if (props.disabled || props.preset === "none" || prefersReducedMotion())
+      return;
+
+    if (props.trigger === "visible") {
+      await setupVisibleTrigger();
+      return;
+    }
+
+    await animate();
+  } finally {
+    // Whatever went wrong above — a missing gsap chunk most of all — the class
+    // that hides the section until it is ready has to come off.
     pending.value = false;
-    return;
   }
-
-  if (props.trigger === "visible") {
-    await setupVisibleTrigger();
-    pending.value = false;
-    return;
-  }
-
-  await animate();
-  pending.value = false;
 });
 
 onUnmounted(() => {

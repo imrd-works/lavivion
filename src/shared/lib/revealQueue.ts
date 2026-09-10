@@ -6,21 +6,42 @@ interface QueuedReveal {
   run: RevealTask;
 }
 
+/** No reveal legitimately runs this long, so a slower one is left behind. */
+const TASK_TIMEOUT = 2000;
+
+/** A hidden tab gets no animation frames, so the queue also starts on a timer. */
+const START_FALLBACK = 100;
+
 const queue: QueuedReveal[] = [];
 let isRunning = false;
 let isScheduled = false;
+
+function runTask(task: RevealTask): Promise<void> {
+  return Promise.race([
+    task(),
+    new Promise<void>((resolve) => setTimeout(resolve, TASK_TIMEOUT)),
+  ]);
+}
 
 async function drain(): Promise<void> {
   if (isRunning) return;
   isRunning = true;
 
-  while (queue.length > 0) {
-    queue.sort((a, b) => a.position - b.position);
-    const next = queue.shift();
-    if (next) await next.run();
-  }
+  try {
+    while (queue.length > 0) {
+      queue.sort((a, b) => a.position - b.position);
+      const next = queue.shift();
+      if (!next) continue;
 
-  isRunning = false;
+      try {
+        await runTask(next.run);
+      } catch {
+        // One broken reveal must not keep every section below it hidden.
+      }
+    }
+  } finally {
+    isRunning = false;
+  }
 }
 
 /**
@@ -36,8 +57,13 @@ export function enqueueReveal(position: number, run: RevealTask): void {
   // otherwise whichever observer fired first would win.
   if (isScheduled) return;
   isScheduled = true;
-  requestAnimationFrame(() => {
+
+  const start = () => {
+    if (!isScheduled) return;
     isScheduled = false;
     void drain();
-  });
+  };
+
+  requestAnimationFrame(start);
+  setTimeout(start, START_FALLBACK);
 }

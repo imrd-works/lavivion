@@ -2,7 +2,17 @@
 // when scripting is available: without JS the reveal would never run and the
 // content would stay invisible.
 html.js .motion--pending {
+  // Nothing removes the class if scripting dies before it gets that far — a
+  // chunk that never arrives, a crash during hydration — so a delayed
+  // animation brings the content back on its own.
+  animation: motion-failsafe 1ms linear 8s forwards;
   opacity: 0;
+}
+
+@keyframes motion-failsafe {
+  to {
+    opacity: 1;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

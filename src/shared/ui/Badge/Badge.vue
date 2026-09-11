@@ -25,7 +25,7 @@ withDefaults(
 @use "shared/assets/styles/mixins" as *;
 
 .badge {
-  @include text("body-s-light");
+  @include text("badge");
 
   display: inline-flex;
   gap: var(--spacing-3xs);

@@ -71,4 +71,11 @@
   --text-body-xs-light-line-height: var(--line-height-2xs);
   --text-body-xs-light-letter-spacing: var(--letter-spacing-normal);
   --text-body-xs-light-transform: none;
+
+  --text-badge-family: var(--font-family-sans);
+  --text-badge-size: var(--font-size-xs);
+  --text-badge-weight: var(--font-weight-light);
+  --text-badge-line-height: var(--line-height-xs);
+  --text-badge-letter-spacing: var(--letter-spacing-tighter);
+  --text-badge-transform: none;
 }

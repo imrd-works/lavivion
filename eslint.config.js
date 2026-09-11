@@ -10,6 +10,24 @@ import eslintConfigPrettier from "eslint-config-prettier";
 
 const noCyrillicEnabled = process.env.ESLINT_NO_CYRILLIC !== "0";
 
+// Feature-Sliced Design allows imports downwards only. The zones below spell
+// that out layer by layer, so a wrong direction fails the lint instead of
+// waiting for someone to spot it in review.
+const LAYERS = ["app", "pages", "widgets", "features", "entities", "shared"];
+
+const layerZones = LAYERS.flatMap((layer, index) => {
+  const above = LAYERS.slice(0, index);
+  if (above.length === 0) return [];
+
+  return [
+    {
+      target: `./src/${layer}`,
+      from: above.map((upper) => `./src/${upper}`),
+      message: `${layer} is below those layers: a slice may only import from the layers under it.`,
+    },
+  ];
+});
+
 export default [
   { ignores: [".nuxt", ".output", "dist", "node_modules", "*.config.js"] },
   js.configs.recommended,
@@ -79,6 +97,29 @@ export default [
       "import/no-unresolved": [
         "error",
         { ignore: ["^virtual:", "\\.svg\\?component$"] },
+      ],
+      "import/no-restricted-paths": [
+        "error",
+        { basePath: import.meta.dirname, zones: layerZones },
+      ],
+      // Slices are reached through their public API. `shared` is the
+      // exception: it has no slices, only segments addressed directly.
+      "no-restricted-imports": [
+        "error",
+        {
+          patterns: [
+            {
+              group: [
+                "@/pages/*/*",
+                "@/widgets/*/*",
+                "@/features/*/*",
+                "@/entities/*/*",
+              ],
+              message:
+                "Import a slice through its index.ts, not its internals.",
+            },
+          ],
+        },
       ],
     },
   },

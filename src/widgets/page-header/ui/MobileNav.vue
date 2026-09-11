@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onBeforeUnmount, ref, watch } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute } from "#app";
 import { useI18n } from "vue-i18n";
 import { IconButton, Logo } from "@/shared/ui";
 import { ContactRequestButton } from "@/features/request-contact";

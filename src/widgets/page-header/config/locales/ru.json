@@ -3,7 +3,7 @@
   "logoLabel": "LA VIVION, на главную",
   "links": {
     "jewellery": "Украшения",
-    "engagement": "Помолвка и свадьба",
+    "engagement": "Помолвка и\u00a0свадьба",
     "gifts": "Подарки",
     "exclusive": "Эксклюзивные украшения",
     "house": "Дом LA VIVION"
@@ -14,7 +14,7 @@
     "favorites": "Избранное",
     "cart": "Корзина"
   },
-  "cta": "Связаться с нами",
+  "cta": "Связаться с\u00a0нами",
   "more": "Ещё",
   "openMenu": "Открыть меню",
   "closeMenu": "Закрыть меню",

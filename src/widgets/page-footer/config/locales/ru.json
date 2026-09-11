@@ -5,7 +5,7 @@
     "customers": {
       "title": "Покупателям",
       "links": {
-        "payment": "Заказ и оплата",
+        "payment": "Заказ и\u00a0оплата",
         "delivery": "Доставка",
         "returns": "Политика возврата",
         "documents": "Документы при покупке",
@@ -14,13 +14,13 @@
       }
     },
     "brand": {
-      "title": "О бренде LA VIVION",
+      "title": "О\u00a0бренде LA VIVION",
       "links": {
-        "company": "О компании",
+        "company": "О\u00a0компании",
         "history": "История Дома LA VIVION",
         "diamonds": "Бриллианты LA VIVION",
         "news": "Новости",
-        "press": "СМИ о нас",
+        "press": "СМИ о\u00a0нас",
         "portal": "Корпоративный портал"
       }
     },
@@ -32,7 +32,7 @@
       }
     },
     "social": {
-      "title": "Мы в соцсетях",
+      "title": "Мы в\u00a0соцсетях",
       "links": {
         "max": "Max",
         "pinterest": "Pinterest",

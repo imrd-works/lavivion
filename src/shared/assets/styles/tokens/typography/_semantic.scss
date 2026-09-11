@@ -38,7 +38,10 @@
   --text-body-m-size: var(--font-size-s);
   --text-body-m-weight: var(--font-weight-regular);
   --text-body-m-line-height: var(--line-height-m);
-  --text-body-m-letter-spacing: var(--letter-spacing-normal);
+  // Figma reports no tracking here, but the browser lays the same string out
+  // about half a percent wider, which costs the last word of a long line in
+  // the fixed-width columns. The step below comes from the mockup's own scale.
+  --text-body-m-letter-spacing: var(--letter-spacing-snug);
   --text-body-m-transform: none;
 
   --text-body-m-light-family: var(--font-family-sans);

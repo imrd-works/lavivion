@@ -7,7 +7,7 @@
     "loading": "Загрузка…",
     "close": "Закрыть",
     "retry": "Повторить",
-    "skipToContent": "Перейти к содержимому"
+    "skipToContent": "Перейти к\u00a0содержимому"
   },
   "errors": {
     "network": "Ошибка запроса",

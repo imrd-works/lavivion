@@ -25,10 +25,10 @@ defineProps<{
   flex-direction: column;
   gap: var(--spacing-l);
   align-items: flex-start;
-  // Half of the shelf minus half a gutter: the mockup measures 683 px at
-  // 1440, but the rule behind that number is the grid, so it has to follow
-  // the container instead of staying fixed.
-  max-width: calc(50% - var(--spacing-2xl) / 2);
+  // The column ends where the wide card of the shelf below it ends: half the
+  // container minus half the gap that grid uses, 692 px at 1440. Written as a
+  // rule rather than as the measured number so it follows the container.
+  max-width: calc(50% - var(--spacing-s) / 2);
 
   &__heading {
     display: flex;

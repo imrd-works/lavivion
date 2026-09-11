@@ -82,6 +82,7 @@ const sizes = imageSizes({ xs: 80, md: 50, lg: 25 });
 
   &__title {
     @include text("heading-m");
+    @include text-balance;
 
     margin: 0;
     color: var(--color-text-primary);

@@ -96,6 +96,9 @@ const sizes = imageSizes({ xs: 100 });
       position: static;
       height: auto;
       aspect-ratio: 16 / 9;
+      // The rings sit right of centre in the photo, so the shorter crop has
+      // to be shifted that way or it keeps only the empty half of the frame.
+      object-position: 72% 50%;
     }
 
     &__content {

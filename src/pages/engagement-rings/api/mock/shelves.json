@@ -74,7 +74,7 @@
         "image": "/images/products/pave-product.png",
         "metals": ["white-gold", "yellow-gold", "rose-gold", "platinum"],
         "to": "/product/pave-2",
-        "badge": "Placeholder"
+        "badge": ""
       },
       {
         "id": "pave-3",
@@ -84,7 +84,7 @@
         "image": "/images/products/pave-product.png",
         "metals": ["white-gold", "yellow-gold", "rose-gold", "platinum"],
         "to": "/product/pave-3",
-        "badge": "Placeholder"
+        "badge": ""
       },
       {
         "id": "pave-4",
@@ -94,7 +94,7 @@
         "image": "/images/products/pave-product.png",
         "metals": ["white-gold", "yellow-gold", "rose-gold", "platinum"],
         "to": "/product/pave-4",
-        "badge": "Placeholder"
+        "badge": ""
       }
     ],
     "to": "/engagement-rings/pave"

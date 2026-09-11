@@ -25,7 +25,10 @@ defineProps<{
   flex-direction: column;
   gap: var(--spacing-l);
   align-items: flex-start;
-  max-width: 683px;
+  // Half of the shelf minus half a gutter: the mockup measures 683 px at
+  // 1440, but the rule behind that number is the grid, so it has to follow
+  // the container instead of staying fixed.
+  max-width: calc(50% - var(--spacing-2xl) / 2);
 
   &__heading {
     display: flex;
@@ -56,6 +59,9 @@ defineProps<{
   }
 
   @include bp-down("lg") {
+    // Two columns and narrower: the heading takes the whole row.
+    max-width: none;
+
     &__title {
       white-space: normal;
     }

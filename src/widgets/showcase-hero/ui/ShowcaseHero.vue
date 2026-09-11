@@ -56,23 +56,23 @@ const sizes = imageSizes({ xs: 100 });
       var(--ease-decelerate) both;
   }
 
+  // The text column is a fixed width from the mockup, not a fraction of the
+  // grid, and it belongs to the block rather than to each line of copy.
   &__content {
     position: absolute;
     top: 50%;
-    right: 0;
-    left: 0;
+    left: var(--spacing-2xl);
     display: flex;
     flex-direction: column;
     gap: var(--spacing-l);
     align-items: flex-start;
-    padding: var(--spacing-2xl);
+    max-width: 432px;
     transform: translateY(-50%);
   }
 
   &__title {
     @include text("heading-xl");
 
-    max-width: 432px;
     margin: 0;
     color: var(--color-text-primary);
   }
@@ -80,7 +80,6 @@ const sizes = imageSizes({ xs: 100 });
   &__description {
     @include text("body-m");
 
-    max-width: 432px;
     margin: 0;
     color: var(--color-text-secondary);
   }
@@ -101,13 +100,8 @@ const sizes = imageSizes({ xs: 100 });
 
     &__content {
       position: static;
-      padding: 0;
-      transform: none;
-    }
-
-    &__title,
-    &__description {
       max-width: none;
+      transform: none;
     }
   }
 

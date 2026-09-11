@@ -21,14 +21,12 @@ defineProps<{
 @use "shared/assets/styles/mixins" as *;
 
 .category-header {
+  @include grid-span(2);
+
   display: flex;
   flex-direction: column;
   gap: var(--spacing-l);
   align-items: flex-start;
-  // The column ends where the wide card of the shelf below it ends: half the
-  // container minus half the gap that grid uses, 692 px at 1440. Written as a
-  // rule rather than as the measured number so it follows the container.
-  max-width: calc(50% - var(--spacing-s) / 2);
 
   &__heading {
     display: flex;

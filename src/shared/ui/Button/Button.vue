@@ -62,11 +62,13 @@ const isButton = computed(() => component.value === "button");
   white-space: nowrap;
   cursor: pointer;
   user-select: none;
-  border: 1px solid transparent;
+  // The outline is drawn inside the box, like a Figma stroke: a real border
+  // would make every bordered button two pixels wider than the mockup.
+  border: 0;
   transition:
     color var(--duration-fast) var(--ease-standard),
     background-color var(--duration-fast) var(--ease-standard),
-    border-color var(--duration-fast) var(--ease-standard),
+    box-shadow var(--duration-fast) var(--ease-standard),
     opacity var(--duration-fast) var(--ease-standard);
 
   &--s {
@@ -82,7 +84,6 @@ const isButton = computed(() => component.value === "button");
   &--primary {
     color: var(--color-action-primary-fg);
     background: var(--color-action-primary-bg);
-    border-color: var(--color-action-primary-bg);
 
     @include hover-supported {
       opacity: 0.9;
@@ -90,12 +91,13 @@ const isButton = computed(() => component.value === "button");
   }
 
   &--outline {
+    @include hairline(all, var(--color-action-secondary-border));
+
     color: var(--color-action-secondary-fg);
     background: transparent;
-    border-color: var(--color-action-secondary-border);
 
     @include hover-supported {
-      border-color: var(--color-border-brand);
+      @include hairline(all, var(--color-border-brand));
     }
   }
 
@@ -104,7 +106,6 @@ const isButton = computed(() => component.value === "button");
     min-height: 0;
     color: var(--color-text-brand);
     background: transparent;
-    border: 0;
   }
 
   &--text {

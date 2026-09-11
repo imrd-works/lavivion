@@ -20,8 +20,16 @@ export default defineNuxtConfig({
     // quality are decided once instead of on each tag.
     presets: { photo: { modifiers: { format: "webp", quality: 80 } } },
   },
-  // Pre-compress static assets (gzip + brotli) at build time.
-  nitro: { compressPublicAssets: true },
+  nitro: {
+    // Pre-compress static assets (gzip + brotli) at build time.
+    compressPublicAssets: true,
+    prerender: {
+      // Links in the header and the footer point at pages that do not exist
+      // yet, so the crawler is expected to meet the 404 page and must not
+      // treat it as a reason to stop the static build.
+      failOnError: false,
+    },
+  },
   alias: { "@": srcPath },
   css: ["@/app/styles/main.scss"],
   runtimeConfig: {

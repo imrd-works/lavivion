@@ -1,0 +1,45 @@
+name: Pages
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+env:
+  HUSKY: "0"
+
+jobs:
+  deploy:
+    name: Build & publish
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - name: Generate the static site
+        run: npx nuxt generate
+        env:
+          NODE_ENV: production
+          NUXT_PUBLIC_SITE_URL: https://imrd-works.github.io
+      - name: Publish to the pages repository
+        env:
+          DEPLOY_TOKEN: ${{ secrets.PAGES_DEPLOY_TOKEN }}
+        run: |
+          cd .output/public
+          git init -q -b main
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -qm "deploy ${GITHUB_REPOSITORY}@${GITHUB_SHA}"
+          git push -q --force \
+            "https://x-access-token:${DEPLOY_TOKEN}@github.com/imrd-works/imrd-works.github.io.git" main

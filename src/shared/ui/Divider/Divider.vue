@@ -1,5 +1,10 @@
+<script setup lang="ts">
+import Motion from "@/shared/ui/Motion/Motion.vue";
+import { revealSection } from "@/shared/config/motion";
+</script>
+
 <template>
-  <hr class="divider" />
+  <Motion v-bind="revealSection" tag="hr" class="divider" />
 </template>
 
 <style lang="scss" scoped>

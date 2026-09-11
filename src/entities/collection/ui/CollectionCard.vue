@@ -49,12 +49,15 @@ const sizes = computed(() =>
     aspect-ratio: 1;
   }
 
-  // The mockup crops the photo 5% tighter than its frame on every side.
+  // The mockup crops the photo vertically only: a tenth taller than the card,
+  // raised by half of that. The width stays at the frame, since the reset
+  // caps every image at its container anyway.
   &__image {
     position: absolute;
-    width: 110%;
-    height: 110%;
     top: -5%;
+    left: 0;
+    width: 100%;
+    height: 110%;
     object-fit: cover;
   }
 

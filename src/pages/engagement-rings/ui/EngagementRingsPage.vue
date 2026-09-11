@@ -65,82 +65,59 @@ const {
 </script>
 
 <template>
-  <div class="engagement-rings-page">
-    <Container>
-      <ShowcaseHero
-        :title="t('engagementRings.hero.title')"
-        :description="t('engagementRings.hero.description')"
-        image="/images/hero/engagement-rings.jpg"
-      />
-    </Container>
+  <Container class="engagement-rings-page">
+    <ShowcaseHero
+      :title="t('engagementRings.hero.title')"
+      :description="t('engagementRings.hero.description')"
+      image="/images/hero/engagement-rings.jpg"
+    />
 
-    <Container>
-      <CatalogFiltersSkeleton v-if="quickFiltersStatus === 'pending'" />
-      <SectionError
-        v-else-if="quickFiltersError"
-        @retry="refreshQuickFilters()"
-      />
-      <CatalogFilters v-else :quick-filters="quickFilters" />
-    </Container>
+    <CatalogFiltersSkeleton v-if="quickFiltersStatus === 'pending'" />
+    <SectionError
+      v-else-if="quickFiltersError"
+      @retry="refreshQuickFilters()"
+    />
+    <CatalogFilters v-else :quick-filters="quickFilters" />
 
-    <Container>
-      <div class="engagement-rings-page__shelves">
-        <template v-if="shelvesStatus === 'pending'">
-          <template v-for="placeholder in 2" :key="placeholder">
-            <Divider v-if="placeholder > 1" />
-            <ProductShelfSkeleton />
-          </template>
-        </template>
-        <SectionError v-else-if="shelvesError" @retry="refreshShelves()" />
-        <template
-          v-for="(shelf, index) in shelves"
-          v-else
-          :key="shelf.category.id"
-        >
-          <Divider v-if="index > 0" />
-          <ProductShelf
-            :category="shelf.category"
-            :products="shelf.products"
-            :to="shelf.to"
-          />
-        </template>
-      </div>
-    </Container>
+    <template v-if="shelvesStatus === 'pending'">
+      <template v-for="placeholder in 2" :key="placeholder">
+        <Divider v-if="placeholder > 1" />
+        <ProductShelfSkeleton />
+      </template>
+    </template>
+    <SectionError v-else-if="shelvesError" @retry="refreshShelves()" />
+    <template v-for="(shelf, index) in shelves" v-else :key="shelf.category.id">
+      <Divider v-if="index > 0" />
+      <ProductShelf
+        :category="shelf.category"
+        :products="shelf.products"
+        :to="shelf.to"
+      />
+    </template>
 
-    <Container>
-      <SizeGuideBanner
-        class="engagement-rings-page__banner"
-        image="/images/banners/size-guide.jpg"
-      />
-    </Container>
+    <SizeGuideBanner
+      class="engagement-rings-page__banner"
+      image="/images/banners/size-guide.jpg"
+    />
 
-    <Container>
-      <BudgetCollectionsSkeleton v-if="collectionsStatus === 'pending'" />
-      <SectionError
-        v-else-if="collectionsError"
-        @retry="refreshCollections()"
-      />
-      <BudgetCollections
-        v-else
-        :title="t('engagementRings.budget.title')"
-        :collections="collections"
-      />
-    </Container>
+    <BudgetCollectionsSkeleton v-if="collectionsStatus === 'pending'" />
+    <SectionError v-else-if="collectionsError" @retry="refreshCollections()" />
+    <BudgetCollections
+      v-else
+      :title="t('engagementRings.budget.title')"
+      :collections="collections"
+    />
 
     <Divider />
 
-    <Container>
-      <ExpertConsultation image="/images/consultation/expert.jpg" />
-    </Container>
+    <ExpertConsultation image="/images/consultation/expert.jpg" />
 
     <Divider />
 
-    <Container>
-      <BlogPreviewSkeleton v-if="blogStatus === 'pending'" />
-      <SectionError v-else-if="blogError" @retry="refreshBlog()" />
-      <BlogPreview v-else :articles="blog.items" :total-count="blog.total" />
-    </Container>
-  </div>
+    <BlogPreviewSkeleton v-if="blogStatus === 'pending'" />
+    <SectionError v-else-if="blogError" @retry="refreshBlog()" />
+    <BlogPreview v-else :articles="blog.items" :total-count="blog.total" />
+  </Container>
 </template>
 
 <style lang="scss" scoped>
@@ -153,12 +130,6 @@ const {
   gap: var(--spacing-4xl);
   padding-bottom: var(--spacing-5xl);
 
-  &__shelves {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-4xl);
-  }
-
   &__banner {
     margin-block: var(--spacing-4xl);
   }
@@ -166,10 +137,6 @@ const {
   @include bp-down("md") {
     gap: var(--spacing-3xl);
     padding-bottom: var(--spacing-4xl);
-
-    &__shelves {
-      gap: var(--spacing-3xl);
-    }
 
     &__banner {
       margin-block: var(--spacing-3xl);

@@ -17,12 +17,11 @@ const sizes = imageSizes({ xs: 45, md: 34, lg: 24, xl: 16 });
       <li v-for="item in items" :key="item.id" class="quick-filter-tiles__item">
         <NuxtLink :to="item.to" class="quick-filter-tiles__link">
           <span class="quick-filter-tiles__media">
-            <span class="quick-filter-tiles__overlay" />
             <NuxtImg
               class="quick-filter-tiles__image"
               :src="item.image"
-              width="400"
-              height="400"
+              width="424"
+              height="424"
               :sizes="sizes"
               loading="lazy"
               preset="photo"
@@ -99,28 +98,14 @@ const sizes = imageSizes({ xs: 45, md: 34, lg: 24, xl: 16 });
   }
 
   &__media {
-    position: relative;
     display: block;
     width: 100%;
     aspect-ratio: 1;
-    padding: var(--spacing-s);
     overflow: hidden;
     background: var(--color-bg-surface-muted);
   }
 
-  &__overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-      180deg,
-      var(--color-overlay-light) 0%,
-      var(--color-overlay-light-strong) 90%
-    );
-    mix-blend-mode: lighten;
-  }
-
   &__image {
-    position: relative;
     display: block;
     width: 100%;
     height: 100%;

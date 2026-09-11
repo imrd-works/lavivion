@@ -5,6 +5,9 @@
   "author": "Daniel Rassomakhin",
   "private": true,
   "type": "module",
+  "engines": {
+    "node": ">=22.22.1"
+  },
   "scripts": {
     "dev": "nuxt dev",
     "build": "npm run lint:check && nuxt typecheck && nuxt build",

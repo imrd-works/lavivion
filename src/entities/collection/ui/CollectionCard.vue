@@ -52,9 +52,9 @@ const sizes = computed(() =>
   // The mockup crops the photo 5% tighter than its frame on every side.
   &__image {
     position: absolute;
-    inset: -5%;
     width: 110%;
     height: 110%;
+    top: -5%;
     object-fit: cover;
   }
 

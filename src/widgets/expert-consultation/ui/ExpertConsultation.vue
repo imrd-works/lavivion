@@ -62,6 +62,7 @@ const { t } = useI18n();
 
   &__title {
     @include text("heading-l");
+    @include text-balance;
 
     margin: 0;
     color: var(--color-text-primary);

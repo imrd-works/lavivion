@@ -50,7 +50,7 @@ defineProps<{
 
   &__description {
     @include text("body-m");
-
+    @include text-pretty();
     margin: 0;
     color: var(--color-text-secondary);
   }

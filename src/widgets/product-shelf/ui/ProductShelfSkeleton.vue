@@ -26,15 +26,16 @@ import { Skeleton } from "@/shared/ui";
   gap: var(--spacing-2xl);
 
   &__header {
+    @include grid-span(2);
+
     display: flex;
     flex-direction: column;
     gap: var(--spacing-s);
-    max-width: 683px;
   }
 
   &__grid {
     display: grid;
-    grid-template-columns: 692fr 342fr 342fr;
+    grid-template-columns: repeat(4, 1fr);
     grid-auto-rows: 1fr;
     gap: var(--spacing-s);
 
@@ -49,9 +50,9 @@ import { Skeleton } from "@/shared/ui";
 
   &__featured {
     grid-row: span 2;
+    grid-column: span 2;
 
     @include bp-down("lg") {
-      grid-column: span 2;
       grid-row: auto;
       aspect-ratio: 16 / 10;
     }

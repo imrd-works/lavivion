@@ -77,6 +77,16 @@
   }
 }
 
+// Width of $span columns of the product grid, gutters included. Blocks that
+// stand outside that grid but have to line up with it use this instead of a
+// measured pixel value.
+@mixin grid-span($span, $of: 4, $gutter: var(--spacing-s)) {
+  max-width: calc(
+    (100% - #{$of - 1} * #{$gutter}) / #{$of} * #{$span} + #{$span - 1} *
+      #{$gutter}
+  );
+}
+
 @mixin auto-grid($min: 16rem, $gap: var(--spacing-m)) {
   @include grid(repeat(auto-fit, minmax(min(100%, #{$min}), 1fr)), $gap);
 }

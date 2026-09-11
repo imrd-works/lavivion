@@ -56,14 +56,16 @@ const rest = computed(() => props.products.slice(1));
 
 .product-shelf-grid {
   display: grid;
-  // Track ratios mirror the mockup: one wide card next to two narrow columns.
-  grid-template-columns: 692fr 342fr 342fr;
+  grid-template-columns: repeat(4, 1fr);
   gap: var(--spacing-s);
 
   &__featured {
     grid-row: 1 / span 2;
+    grid-column: span 2;
   }
 
+  // Left to auto-placement on purpose: it lands in the cell the cards leave
+  // free, which is where the mockup puts it.
   &__more {
     align-self: center;
     justify-self: center;
@@ -74,7 +76,6 @@ const rest = computed(() => props.products.slice(1));
 
     &__featured {
       grid-row: auto;
-      grid-column: span 2;
     }
   }
 

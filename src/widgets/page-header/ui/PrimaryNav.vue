@@ -3,6 +3,7 @@ import { ref } from "vue";
 import { useI18n } from "vue-i18n";
 import { Icon } from "@/shared/ui";
 import type { NavigationLink } from "../config/navigation";
+import { warnOnNavOverflow } from "../lib/warnOnNavOverflow";
 
 defineProps<{
   links: NavigationLink[];
@@ -11,6 +12,9 @@ defineProps<{
 const { t } = useI18n();
 
 const isOpen = ref(false);
+const list = ref<HTMLElement | null>(null);
+
+warnOnNavOverflow(list);
 
 function close() {
   isOpen.value = false;
@@ -19,7 +23,7 @@ function close() {
 
 <template>
   <nav class="primary-nav" :aria-label="t('pageHeader.navLabel')">
-    <ul class="primary-nav__list">
+    <ul ref="list" class="primary-nav__list">
       <li v-for="link in links" :key="link.key" class="primary-nav__item">
         <NuxtLink :to="link.to" class="primary-nav__link">
           {{ t(`pageHeader.links.${link.key}`) }}
